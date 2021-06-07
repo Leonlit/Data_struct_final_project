@@ -1,3 +1,4 @@
+
 public class Menu {
     final static String DEFAULT_SYMBOL = "#";
     final static int BORDER_LENGHT = 2;
@@ -11,29 +12,46 @@ public class Menu {
     }
 
     private static void printTitle (String title) {
-        GenerateAsciiArt asciiArts = new GenerateAsciiArt(title);
-        asciiArts.printArt(DEFAULT_SYMBOL);
+        // extras (When got more time)
+        //GenerateAsciiArt asciiArts = new GenerateAsciiArt(title);
+        //asciiArts.printArt(DEFAULT_SYMBOL);
+        printSingleSymbol(false);
+        int half = (MENU_LENGTH - title.length()) / 2;
+        printContinous(" ", half, false);
+        System.out.print(title);
+        printContinous(" ", half + (MENU_LENGTH % (half + half + title.length())), false);
+        printSingleSymbol(true);
+    }
+
+    private static void printOption (String str) {
+
     }
 
     private static void printHorizontalBorder () {
-        printSingleSymbol();
+        printSingleSymbol(false);
         for (int idx = 0; idx < MENU_LENGTH; idx++) {
             System.out.print(DEFAULT_SYMBOL);
         }
-        printSingleSymbol();
-        System.out.println();
+        printSingleSymbol(true);
     }
 
     private static void printEmptyRow() {
-        printSingleSymbol();
+        printSingleSymbol(false);
         for (int idx = 0; idx < MENU_LENGTH; idx++) {
             System.out.print(" ");
         }
-        printSingleSymbol();
-        System.out.println();
+        printSingleSymbol(true);
     }
 
-    private static void printSingleSymbol() {
+    private static void printContinous (String str, int size, boolean newline) {
+        for (int idx = 0;idx < size;idx++) {
+            System.out.print(str);
+        }
+        if (newline) System.out.println();
+    }
+
+    private static void printSingleSymbol(boolean newline) {
         System.out.print(DEFAULT_SYMBOL);
+        if (newline) System.out.println();
     }
 }
