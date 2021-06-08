@@ -109,6 +109,14 @@ public class Menu {
         printNewLine();
     }
 
+    final static public void invalidOptionMessage () {
+        printNewLine();
+        printHorizontalBorder(false);
+        printTitle("Invalid Option!!! Please try again!!!");
+        printHorizontalBorder(false);
+        printNewLine();
+    }
+
     final static public void printTitle (String title) {
         printSingleSymbol(false);
         int half = (MENU_LENGTH - title.length()) / 2;
