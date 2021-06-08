@@ -17,7 +17,7 @@ public class Menu {
     final static int MENU_LENGTH = 100 - (BOREDR_SYMBOL.length() * 2);      // length of our menu (exluding border length)
                                                                             // because they will be printed later
 
-    public static void showMenu(int type) {
+    final static public void showMenu(int type) {
         switch (type) {
             case -1:
                 exitMenu();
@@ -40,16 +40,15 @@ public class Menu {
     }
     
     // main menu
-    public static void mainMenu() {
+    final static public void mainMenu() {
         printNewLine();
         printHorizontalBorder(false);
         printTitle("Main Menu");
         printHorizontalBorder(false);
         printEmptyRow();
         printOrderedOption("1" ,"Search Book");
-        printOrderedOption("2" ,"Add Book");
-        printOrderedOption("3" ,"Edit Book");
-        printOrderedOption("4" ,"Delete Book");
+        printOrderedOption("2" ,"View cart");
+        printOrderedOption("3" ,"Checkout cart");
         printEmptyRow();
         printOrderedOption("-1" ,"Exit");
         printEmptyRow();
@@ -57,7 +56,7 @@ public class Menu {
     }
 
     // search book's menu
-    public static void searchBookMenu() {
+    final static public void searchBookMenu() {
         printNewLine();
         printHorizontalBorder(false);
         printTitle("Search Book details");
@@ -66,6 +65,7 @@ public class Menu {
         printOrderedOption("1" ,"Search by categories");
         printOrderedOption("2" ,"Search by name");
         printOrderedOption("3" ,"Search by ID");
+        printOrderedOption("4" ,"View book info (by ID)");
         printEmptyRow();
         printOrderedOption("0" , "Main menu");
         printEmptyRow();
@@ -74,7 +74,7 @@ public class Menu {
     }
 
     // book's menu
-    public static void BookMenu(String title) {
+    final static public void BookMenu(String title) {
         printNewLine();
         printHorizontalBorder(false);
         printTitle("Viewing Book Details");
@@ -83,7 +83,7 @@ public class Menu {
     }
 
     // cart's menu
-    public static void cartMenu() {
+    final static public void cartMenu() {
         printNewLine();
         printHorizontalBorder(false);
         printTitle("Viewing cart items");
@@ -91,7 +91,7 @@ public class Menu {
     }
 
     // checkout's  menu
-    public static void checkOutMenu() {
+    final static public void checkOutMenu() {
         printNewLine();
         printHorizontalBorder(false);
         printTitle("Continuing with checking out the books");
@@ -100,7 +100,7 @@ public class Menu {
     }
 
     // Exit menu
-    public static void exitMenu() {
+    final static public void exitMenu() {
         printNewLine();
         printHorizontalBorder(false);
         printTitle("Thanks for using the program");
@@ -109,7 +109,7 @@ public class Menu {
         printNewLine();
     }
 
-    public static void printTitle (String title) {
+    final static public void printTitle (String title) {
         printSingleSymbol(false);
         int half = (MENU_LENGTH - title.length()) / 2;
         printContinous(" ", half, false);
@@ -119,7 +119,7 @@ public class Menu {
         printSingleSymbol(true);
     }
 
-    public static void printOrderedOption (String idx, String str) {
+    final static public void printOrderedOption (String idx, String str) {
         printSingleSymbol(false);
         printContinous(" ", OPTIONS_TAB, false);
         System.out.print(idx + OPTION_ORDERED_SYMBOL);
@@ -130,7 +130,7 @@ public class Menu {
         printSingleSymbol(true);
     }
 
-    public static void printUnorderedOption (String str) {
+    final static public void printUnorderedOption (String str) {
         printSingleSymbol(false);
         printContinous(" ", OPTIONS_TAB, false);
         System.out.print(OPTION_UNORDERED_SYMBOL + str);
@@ -140,7 +140,7 @@ public class Menu {
         printSingleSymbol(true);
     }
 
-    public static void printCategory (String label, String value) {
+    final static public void printCategory (String label, String value) {
         printSingleSymbol(false);
         printContinous(" ", OPTIONS_TAB, false);
         System.out.print(OPTION_UNORDERED_SYMBOL + label + OPTION_OPTION_SEPARATOR + value);
@@ -151,8 +151,19 @@ public class Menu {
         printSingleSymbol(true);
     }
 
+    final static public void printReturnedMainMenu () {
+        String msg = "Returning to Main menu";
+        printSingleSymbol(false);
+        int half = (MENU_LENGTH - msg.length()) / 2;
+        printContinous(" ", half, false);
+        System.out.print(msg);
+        //print continously the remaining spaces and the border after the initial half and the title is printed
+        printContinous(" ", half + (MENU_LENGTH % (half + half + msg.length())), false);
+        printSingleSymbol(true);
+    }
+
     //printing a line of border based on the length of the menu and the symbol used
-    public static void printHorizontalBorder (boolean doubleNewline) {
+    final static public void printHorizontalBorder (boolean doubleNewline) {
         printSingleSymbol(false);
         for (int idx = 0; idx < MENU_LENGTH; idx++) {
             System.out.print(BOREDR_SYMBOL);
@@ -161,7 +172,7 @@ public class Menu {
         if (doubleNewline) printNewLine();
     }
 
-    public static void printEmptyRow() {
+    final static public void printEmptyRow() {
         printSingleSymbol(false);
         for (int idx = 0; idx < MENU_LENGTH; idx++) {
             System.out.print(" ");
@@ -169,14 +180,14 @@ public class Menu {
         printSingleSymbol(true);
     }
 
-    public static void printContinous (String str, int size, boolean newline) {
+    final static public void printContinous (String str, int size, boolean newline) {
         for (int idx = 0;idx < size;idx++) {
             System.out.print(str);
         }
         if (newline) printNewLine();
     }
 
-    public static void printSingleSymbol(boolean newline) {
+    final static public void printSingleSymbol(boolean newline) {
         System.out.print(BOREDR_SYMBOL);
         if (newline) printNewLine();
     }
