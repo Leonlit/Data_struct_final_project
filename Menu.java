@@ -1,4 +1,3 @@
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Menu class
@@ -10,14 +9,17 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class Menu {
     //changable parameters
-    final static String BOREDR_SYMBOL = "#";                               // Symbol for the borders
+    final static String BOREDR_SYMBOL = "#";                                // Symbol for the borders
     final static String OPTION_SYMBOL = ". ";                               // Symbol for the options
     final static int OPTIONS_TAB = 3;                                       // How many space for the options
-    final static int MENU_LENGTH = 100 - (BOREDR_SYMBOL.length() * 2);     // length of our menu (exluding border length)
+    final static int MENU_LENGTH = 100 - (BOREDR_SYMBOL.length() * 2);      // length of our menu (exluding border length)
                                                                             // because they will be printed later
 
     public static void showMenu(int type) {
         switch (type) {
+            case -1:
+                exitMenu();
+                break;
             case 0:
                 mainMenu();
                 break;
@@ -25,7 +27,10 @@ public class Menu {
                 searchBookMenu();
                 break;
             case 2:
-                addBookMenu();
+                cartMenu();
+                break;
+            case 3:
+                checkOutMenu();
                 break;
             default:
                 break;
@@ -34,7 +39,7 @@ public class Menu {
     
     // main menu
     public static void mainMenu() {
-        printEmptyLine();
+        printNewLine();
         printHorizontalBorder(false);
         printTitle("Main Menu");
         printHorizontalBorder(false);
@@ -49,11 +54,11 @@ public class Menu {
         printHorizontalBorder(true);
     }
 
-    // search book
+    // search book's menu
     public static void searchBookMenu() {
-        printEmptyLine();
+        printNewLine();
         printHorizontalBorder(false);
-        printTitle("Search Book");
+        printTitle("Search Book details");
         printHorizontalBorder(false);
         printEmptyRow();
         printOption("1" ,"Search by categories");
@@ -65,13 +70,31 @@ public class Menu {
         printHorizontalBorder(true);
     }
 
-    // search book
-    public static void addBookMenu() {
-        printEmptyLine();
+    // add book's menu
+    public static void cartMenu() {
+        printNewLine();
         printHorizontalBorder(false);
-        printTitle("Add new book into the record");
+        printTitle("Viewing cart items");
         printHorizontalBorder(true);
+    }
 
+    // edit book's menu
+    public static void checkOutMenu() {
+        printNewLine();
+        printHorizontalBorder(false);
+        printTitle("Continuing with checking out the books");
+        printHorizontalBorder(false);
+        printNewLine();
+    }
+
+    // Exit menu
+    public static void exitMenu() {
+        printNewLine();
+        printHorizontalBorder(false);
+        printTitle("Thanks for using the program");
+        printTitle("Exiting the program");
+        printHorizontalBorder(false);
+        printNewLine();
     }
 
     private static void printTitle (String title) {
@@ -102,7 +125,7 @@ public class Menu {
             System.out.print(BOREDR_SYMBOL);
         }
         printSingleSymbol(true);
-        if (doubleNewline) printEmptyLine();
+        if (doubleNewline) printNewLine();
     }
 
     private static void printEmptyRow() {
@@ -117,15 +140,15 @@ public class Menu {
         for (int idx = 0;idx < size;idx++) {
             System.out.print(str);
         }
-        if (newline) printEmptyLine();
+        if (newline) printNewLine();
     }
 
     private static void printSingleSymbol(boolean newline) {
         System.out.print(BOREDR_SYMBOL);
-        if (newline) printEmptyLine();
+        if (newline) printNewLine();
     }
 
-    private static void printEmptyLine () {
+    private static void printNewLine () {
         System.out.println();
     }
 }
