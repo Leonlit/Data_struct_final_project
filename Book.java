@@ -16,7 +16,7 @@ public class Book {
         return this.id;
     }
 
-    public String getName() {
+    public String getTitle() {
         return this.name;
     }
 
