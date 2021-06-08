@@ -37,7 +37,14 @@ public class BookExecuter {
         //searching algorithm
     }
 
-    final static void bookViewerMenu (Book currBook) {
+    final static void bookViewerMenu () {
+        Menu.printNewLine();
+        Menu.printHorizontalBorder(false);
+        Menu.printTitle("Please enter the ID for the book");
+        Menu.printHorizontalBorder(false);
+        Menu.printNewLine();
+        int bookID = InputUtil.getInteger(true);
+        Book currBook = getBook(bookID);
         int option = 0;
         BookViewer viewer = new BookViewer(currBook);
         do {

@@ -10,10 +10,10 @@ public class BookViewer {
     public void getView (int option) {
         switch (option) {
             case -1:
-                
+                Menu.printReturnedMainMenu();
                 break;
             case 0:
-                
+                Menu.printReturnedPreviousMenu();
                 break;
             case 1:
                 this.showInfo();

@@ -116,6 +116,16 @@ public class Menu {
         printHorizontalBorder(false);
         printNewLine();
     }
+    
+    final static public void printReturnedMainMenu () {
+        String msg = "Returning to Main menu";
+        printTitle(msg);
+    }
+
+    final static public void printReturnedPreviousMenu () {
+        String msg = "Returning to Main menu";
+        printTitle(msg);
+    }
 
     final static public void printTitle (String title) {
         printSingleSymbol(false);
@@ -156,17 +166,6 @@ public class Menu {
         int remains = MENU_LENGTH - label.length() - value.length() - OPTIONS_TAB - 
                         OPTION_UNORDERED_SYMBOL.length() - OPTION_OPTION_SEPARATOR.length();
         printContinous(" ", remains, false);
-        printSingleSymbol(true);
-    }
-
-    final static public void printReturnedMainMenu () {
-        String msg = "Returning to Main menu";
-        printSingleSymbol(false);
-        int half = (MENU_LENGTH - msg.length()) / 2;
-        printContinous(" ", half, false);
-        System.out.print(msg);
-        //print continously the remaining spaces and the border after the initial half and the title is printed
-        printContinous(" ", half + (MENU_LENGTH % (half + half + msg.length())), false);
         printSingleSymbol(true);
     }
 

@@ -37,7 +37,7 @@ public class Executer {
                 BookExecuter.searchByIDMenu();
                 break;
             case 4:
-                BookExecuter.ViewBookInfoMenu();
+                BookExecuter.bookViewerMenu();
                 break;
             default:
                 break;
