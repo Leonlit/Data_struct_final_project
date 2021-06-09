@@ -5,7 +5,8 @@ public class Book {
     //private BookQueue waitingList;
     //private BookNetwork previousBorrower;
 
-    public Book (int id, String name, String date, String writer) {
+    public Book (int id, String name, String writer, String date, String[] categories,
+            String waitingList[], String history[]) {
         this.id = id;
         this.name = name;
         this.date = date;

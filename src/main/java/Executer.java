@@ -5,10 +5,10 @@ public class Executer {
                 searchBook();
                 break;
             case 2:
-                viewCart();
+                //viewCart();
                 break;
             case 3:
-                checkOutCart();
+                //checkOutCart();
                 break;
             default:
                 break;

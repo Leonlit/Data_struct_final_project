@@ -1,0 +1,29 @@
+[
+    {
+        "id": 11111,
+        "name": "Test",
+        "categories": ["test", "not-real"],
+        "date": "17-05-2021",
+        "writer": "leon",
+        "previously-borrowed": [],
+        "waiting-list": []
+    },
+    {
+        "id": 22222,
+        "name": "Test2",
+        "categories": ["test2", "not-real"],
+        "date": "17-05-2021",
+        "writer": "leon",
+        "previously-borrowed": [],
+        "waiting-list": []
+    },
+    {
+        "id": 33333,
+        "name": "Test3",
+        "categories": ["test3", "not-real"],
+        "date": "17-05-2021",
+        "writer": "leon",
+        "previously-borrowed": [],
+        "waiting-list": []
+    }
+]

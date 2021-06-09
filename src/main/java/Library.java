@@ -6,6 +6,11 @@ public class Library {
         Menu.checkOutMenu();
         Menu.exitMenu();
         //startEventLoop();
+        BookViewer viewer = new BookViewer(DataReader.BOOKS_AVAILABLE[0]);
+        viewer.showInfo();
+        viewer.showMenu();
+        viewer.historyInfo();
+        viewer.waitingListInfo();
     }
 
     static void startEventLoop () {
@@ -17,7 +22,6 @@ public class Library {
             Executer.executeOption(choosed);
             choosed = 0;
         }
-
         Menu.exitMenu();
     }
 }

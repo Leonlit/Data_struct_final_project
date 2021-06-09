@@ -5,15 +5,21 @@ public class BookViewer {
 
     public BookViewer (Book viewedBook) {
         this.viewedBook = viewedBook;
+        int option = 0;
+        do {
+            showMenu();
+            option = InputUtil.getInteger(false);
+            getView(option);
+        }while (option > 0);
     }
 
     public void getView (int option) {
         switch (option) {
             case -1:
-                Menu.printReturnedMainMenu();
+                Menu.printReturnedPreviousMenu("Returning to Search Book Details Menu");
                 break;
             case 0:
-                Menu.printReturnedPreviousMenu();
+                Menu.printReturnedMainMenu();
                 break;
             case 1:
                 this.showInfo();
@@ -32,9 +38,7 @@ public class BookViewer {
 
     public void showMenu () {
         Menu.printNewLine();
-        Menu.printHorizontalBorder(false);
-        Menu.printTitle("Book Viewer Menu");
-        Menu.printHorizontalBorder(false);
+        Menu.printTitle("Book Viewer Menu for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         Menu.printOrderedOption("1" ,"Show book info");
         Menu.printOrderedOption("2" ,"Show book history info");
@@ -49,10 +53,8 @@ public class BookViewer {
 
     public void showInfo() {
         Menu.printNewLine();
-        Menu.printHorizontalBorder(false);
         Menu.printEmptyRow();
-        Menu.printTitle("Viewing Info for " + viewedBook.getTitle());
-        Menu.printHorizontalBorder(false);
+        Menu.printTitle("Viewing Info for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         Menu.printCategory("Name", viewedBook.getTitle());
         Menu.printCategory("Writer", viewedBook.getWriter());
@@ -65,10 +67,8 @@ public class BookViewer {
 
     public void historyInfo() {
         Menu.printNewLine();
-        Menu.printHorizontalBorder(false);
         Menu.printEmptyRow();
-        Menu.printTitle("Viewing History Info for " + viewedBook.getTitle());
-        Menu.printHorizontalBorder(false);
+        Menu.printTitle("Viewing History Info for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         //need implementation
         Menu.printEmptyRow();
@@ -77,10 +77,8 @@ public class BookViewer {
 
     public void waitingListInfo() {
         Menu.printNewLine();
-        Menu.printHorizontalBorder(false);
         Menu.printEmptyRow();
-        Menu.printTitle("Viewing Waiting List for " + viewedBook.getTitle());
-        Menu.printHorizontalBorder(false);
+        Menu.printTitle("Viewing Waiting List for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         //need implementation
         Menu.printEmptyRow();

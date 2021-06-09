@@ -13,6 +13,7 @@ public class Menu {
     final static String OPTION_ORDERED_SYMBOL = ". ";                       // Symbol for the ordered options
     final static String OPTION_UNORDERED_SYMBOL = "o ";                     // Symbol for the unordered options
     final static String OPTION_OPTION_SEPARATOR = " : ";                    // category separator
+    final static int SPACE_BETWEEN = 2;                                     // Space between title's border
     final static int OPTIONS_TAB = 3;                                       // How many space for the options
     final static int MENU_LENGTH = 100 - (BOREDR_SYMBOL.length() * 2);      // length of our menu (exluding border length)
                                                                             // because they will be printed later
@@ -42,9 +43,7 @@ public class Menu {
     // main menu
     final static public void mainMenu() {
         printNewLine();
-        printHorizontalBorder(false);
         printTitle("Main Menu");
-        printHorizontalBorder(false);
         printEmptyRow();
         printOrderedOption("1" ,"Search Book");
         printOrderedOption("2" ,"View cart");
@@ -58,9 +57,7 @@ public class Menu {
     // search book's menu
     final static public void searchBookMenu() {
         printNewLine();
-        printHorizontalBorder(false);
         printTitle("Search Book details");
-        printHorizontalBorder(false);
         printEmptyRow();
         printOrderedOption("1" ,"Search by categories");
         printOrderedOption("2" ,"Search by name");
@@ -85,17 +82,14 @@ public class Menu {
     // cart's menu
     final static public void cartMenu() {
         printNewLine();
-        printHorizontalBorder(false);
         printTitle("Viewing cart items");
-        printHorizontalBorder(true);
+        printNewLine();
     }
 
     // checkout's  menu
     final static public void checkOutMenu() {
         printNewLine();
-        printHorizontalBorder(false);
         printTitle("Continuing with checking out the books");
-        printHorizontalBorder(false);
         printNewLine();
     }
 
@@ -110,31 +104,42 @@ public class Menu {
     }
 
     final static public void invalidOptionMessage () {
-        printNewLine();
-        printHorizontalBorder(false);
-        printTitle("Invalid Option!!! Please try again!!!");
-        printHorizontalBorder(false);
-        printNewLine();
+        printMessage("Invalid Option!!! Please try again!!!");
     }
     
     final static public void printReturnedMainMenu () {
         String msg = "Returning to Main menu";
-        printTitle(msg);
+        printMessage(msg);
     }
 
-    final static public void printReturnedPreviousMenu () {
-        String msg = "Returning to Main menu";
+    final static public void printReturnedPreviousMenu (String prevMenu) {
+        String msg = "Returning to " + prevMenu;
+        printMessage(msg);
+    }
+    
+    final static public void printMessage(String msg) {
+        printNewLine();
         printTitle(msg);
+        printNewLine();
     }
 
     final static public void printTitle (String title) {
+        int half = (MENU_LENGTH - title.length() - (SPACE_BETWEEN * 2)) / 2;
+        int times = 1;
+        printHorizontalBorder(false);
         printSingleSymbol(false);
-        int half = (MENU_LENGTH - title.length()) / 2;
-        printContinous(" ", half, false);
-        System.out.print(title);
-        //print continously the remaining spaces and the border after the initial half and the title is printed
-        printContinous(" ", half + (MENU_LENGTH % (half + half + title.length())), false);
-        printSingleSymbol(true);
+        if (half < 0) {
+            if ()
+        }
+        for (int idx = 0;idx<times;idx++) {
+            printContinous(" ", half + SPACE_BETWEEN, false);
+            System.out.print(title);
+            //print continously the remaining spaces and the border after the initial half and the title is printed
+            printContinous(" ", half + SPACE_BETWEEN + (MENU_LENGTH % (half + half + title.length())), false);
+            printSingleSymbol(true);
+        }
+        
+        printHorizontalBorder(false);
     }
 
     final static public void printOrderedOption (String idx, String str) {
