@@ -15,7 +15,10 @@ public class Menu {
     final static String OPTION_OPTION_SEPARATOR = " : ";                    // category separator
     final static int SPACE_BETWEEN = 2;                                     // Space between title's border
     final static int OPTIONS_TAB = 3;                                       // How many space for the options
-    final static int MENU_LENGTH = 100 - (BOREDR_SYMBOL.length() * 2);      // length of our menu (exluding border length)
+    final static int MENU_LENGTH = 100;                                     // length of our menu (exluding border length)
+    final static int CONTENT_LENGTH = MENU_LENGTH                           // Length of usable space for printing
+                                     - (BOREDR_SYMBOL.length() * 2)         //
+                                         - (SPACE_BETWEEN * 2);             // 
                                                                             // because they will be printed later
 
     final static public void showMenu(int type) {
@@ -42,7 +45,6 @@ public class Menu {
     
     // main menu
     final static public void mainMenu() {
-        printNewLine();
         printTitle("Main Menu");
         printEmptyRow();
         printOrderedOption("1" ,"Search Book");
@@ -56,7 +58,6 @@ public class Menu {
 
     // search book's menu
     final static public void searchBookMenu() {
-        printNewLine();
         printTitle("Search Book details");
         printEmptyRow();
         printOrderedOption("1" ,"Search by categories");
@@ -72,34 +73,26 @@ public class Menu {
 
     // book's menu
     final static public void BookMenu(String title) {
-        printNewLine();
-        printHorizontalBorder(false);
         printTitle("Viewing Book Details");
         printTitle(title);
-        printHorizontalBorder(true);
+        printNewLine();
     }
 
     // cart's menu
     final static public void cartMenu() {
-        printNewLine();
         printTitle("Viewing cart items");
         printNewLine();
     }
 
     // checkout's  menu
     final static public void checkOutMenu() {
-        printNewLine();
         printTitle("Continuing with checking out the books");
         printNewLine();
     }
 
     // Exit menu
     final static public void exitMenu() {
-        printNewLine();
-        printHorizontalBorder(false);
-        printTitle("Thanks for using the program");
-        printTitle("Exiting the program");
-        printHorizontalBorder(false);
+        printMultiTitle(new String[]{"Thanks for using the program","Exiting the program"});
         printNewLine();
     }
 
@@ -118,29 +111,53 @@ public class Menu {
     }
     
     final static public void printMessage(String msg) {
-        printNewLine();
+        
         printTitle(msg);
         printNewLine();
     }
 
     final static public void printTitle (String title) {
-        int half = (MENU_LENGTH - title.length() - (SPACE_BETWEEN * 2)) / 2;
-        int times = 1;
+        printNewLine();
         printHorizontalBorder(false);
-        printSingleSymbol(false);
-        if (half < 0) {
-            if ()
-        }
-        for (int idx = 0;idx<times;idx++) {
-            printContinous(" ", half + SPACE_BETWEEN, false);
-            System.out.print(title);
-            //print continously the remaining spaces and the border after the initial half and the title is printed
-            printContinous(" ", half + SPACE_BETWEEN + (MENU_LENGTH % (half + half + title.length())), false);
-            printSingleSymbol(true);
-        }
-        
+        printTextContent(title);
         printHorizontalBorder(false);
     }
+    
+    final static public void printMultiTitle (String titles[]) {
+        printHorizontalBorder(false);
+        for (String title: titles){
+            printTextContent(title);
+        }
+        printHorizontalBorder(false);
+    }
+    
+    final static public void printTextContent (String title) {
+        int half = (CONTENT_LENGTH - title.length()) / 2 ;
+        int times = 0;
+        if (half < 0) {
+            int remains = title.length() / CONTENT_LENGTH;
+            if (remains > 0) {
+                times += remains;
+            }
+        }
+        if (title.length() % CONTENT_LENGTH != 0){
+            times += 1;
+        }
+        for (int idx = 0;idx < times;idx++) {
+            int start = CONTENT_LENGTH * idx;
+            int end = ((title.length() - start)/CONTENT_LENGTH > 0 ) ?
+                    start + CONTENT_LENGTH : title.length();
+            String currTitle = title.substring(start, end);
+            half = (CONTENT_LENGTH - currTitle.length()) / 2;
+            printSingleSymbol(false);
+            printContinous(" ", half + SPACE_BETWEEN + BOREDR_SYMBOL.length() , false);
+            System.out.print(currTitle);
+            //print continously the remaining spaces and the border after the initial half and the title is printed
+            printContinous(" ", CONTENT_LENGTH - currTitle.length() - half + SPACE_BETWEEN + BOREDR_SYMBOL.length(), false);
+            printSingleSymbol(true);
+        }
+    }
+         
 
     final static public void printOrderedOption (String idx, String str) {
         printSingleSymbol(false);
