@@ -39,6 +39,7 @@ public class Menu {
                 checkOutMenu();
                 break;
             default:
+                invalidOptionMessage();
                 break;
         }
     }
@@ -111,7 +112,6 @@ public class Menu {
     }
     
     final static public void printMessage(String msg) {
-        
         printTitle(msg);
         printNewLine();
     }
