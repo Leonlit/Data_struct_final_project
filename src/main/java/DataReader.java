@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class DataReader {
-    final static Book[] BOOKS_AVAILABLE = getRecords();
     
     final static public Book[] getRecords () {
         String result = readFileContent();

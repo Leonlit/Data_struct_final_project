@@ -6,7 +6,7 @@ public class Library {
         Menu.checkOutMenu();
         Menu.exitMenu();
         //startEventLoop();
-        WaitingList waitingList = new WaitingList(10);
+        WaitingList waitingList = new WaitingList();
         waitingList.enQueue(111111);
         waitingList.enQueue(222222);
         waitingList.enQueue(333333);

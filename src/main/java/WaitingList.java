@@ -3,12 +3,11 @@ import java.util.*;
 //cart using queue concept to act as a cart to store book ID
 //that the user want to borrow.
 public class WaitingList {
-    private int maxSize;
+    private int maxSize = 10;
     private int[] list;
     private int rear = -1, front = -1;
     
-    WaitingList(int maxSize) {
-        this.maxSize = maxSize;
+    WaitingList() {
         list = new int[maxSize];
     }
     
