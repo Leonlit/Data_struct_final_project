@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 public class Book {
     private int id;
     private String name, date, writer;
@@ -6,7 +9,7 @@ public class Book {
     //private BookNetwork previousBorrower;
 
     public Book (int id, String name, String writer, String date, String[] categories,
-            String waitingList[], String history[]) {
+            String[] waitingList, String[][] history) {
         this.id = id;
         this.name = name;
         this.date = date;

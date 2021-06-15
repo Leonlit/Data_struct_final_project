@@ -24,6 +24,11 @@ public class Library {
         waitingList.enQueue(555555);
         waitingList.enQueue(666666);
         waitingList.display();
+        Book books[] = DataGenerator.generateBooks();
+        //BookViewer viewer = new BookViewer(books[0]);
+        //viewer.showInfo();
+        //viewer.historyInfo();
+        //viewer.waitingListInfo();
     }
 
     static void startEventLoop () {

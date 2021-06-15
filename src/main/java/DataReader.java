@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class DataReader {
     
@@ -25,12 +22,14 @@ public class DataReader {
               data += myReader.nextLine();
             }
             myReader.close();
-            System.out.println("Getting Dummy book data");
+            Menu.printMessage("trying to get dummy book data");
             
         }catch (IOException ex) {
-            System.out.println("Error when getting data from file");
+            Menu.printMessage("Error when getting data from file");
             ex.printStackTrace();
         }
+        
+        Menu.printMessage("Finished Reading Data from file");
         return data;
     }
 }
