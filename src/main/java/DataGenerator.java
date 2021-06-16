@@ -17,12 +17,11 @@ public class DataGenerator {
             String writers[] = getJsonArrayStringValue(data.getJSONArray("writers"));
             String dates[] = getJsonArrayStringValue(data.getJSONArray("dates"));
             String categories[] = getJsonArrayStringValue(data.getJSONArray("categories"));
-            int bookCategories[][] = getJsonArrayofArrayValue(data.getJSONArray("bookCategories"));
             int waitingList[][] = getJsonArrayofArrayValue(data.getJSONArray("waitingList"));
             String students[] = getJsonArrayStringValue(data.getJSONArray("students"));
             
             for (int idx=0;idx < bookID.length;idx++) {
-                String currBookCategories[] = generateCategories(categories, bookCategories[idx]);
+                String currBookCategories[] = generateCategories(shuffleStringArray(categories), genRandomNumber(2, 4));
                 String history[][] = generateHistory(dates, students);
                 String waiting[] = generateWaitingList(waitingList[idx], students);
                 books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
@@ -36,9 +35,7 @@ public class DataGenerator {
     }
     
     final static private String[][] generateHistory (String[] dates, String[] student) {
-        int max = 10;
-        int min = 3;
-        int rand = (int)(Math.random() * (max - min + 1) + min);
+        int rand = genRandomNumber(3, 10);
         String results[][] = new String[rand][2];
         String newDates[] = shuffleStringArray(dates);
         String newStudents[] = shuffleStringArray(student);
@@ -46,6 +43,11 @@ public class DataGenerator {
             results[idx] = new String[]{newDates[idx], newStudents[idx]};
         }
         return results;
+    }
+    
+    final static private int genRandomNumber (int min, int max) {
+        int rand = (int)(Math.random() * (max - min + 1) + min);
+        return rand;
     }
     
     final static private String[] shuffleStringArray (String[] arr) {
@@ -63,12 +65,12 @@ public class DataGenerator {
         return result;
     }
     
-    final static private String[] generateCategories (String labels[], int categoriesIdx[]) {
-        String categories[] = new String[categoriesIdx.length];
-        for (int idx = 0; idx < categoriesIdx.length; idx++) {
-            System.out.println(categoriesIdx[idx]);
-            categories[idx] = labels[categoriesIdx[idx]];
+    final static private String[] generateCategories (String labels[], int max) {
+        String categories[] = new String[max];
+        for (int idx = 0; idx < max; idx++) {
+            categories[idx] = labels[idx];
         }
+        System.out.println(Arrays.toString(categories));
         return categories;
     }
     

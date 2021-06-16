@@ -1,26 +1,5 @@
 public class BookExecuter {
     // optional
-    final static void searchByCategoryMenu () {
-        Menu.printNewLine();
-        Menu.printTitle("Search Book By Category");
-        Menu.printEmptyRow();
-        Menu.printHorizontalBorder(true);
-        System.out.println("Please Enter the Book ID that you would like to search");
-        int bookID = InputUtil.getInteger(true);
-        //searching algorithm
-    }
-
-    // optional
-    final static void searchByNameMenu () {
-        Menu.printNewLine();
-        Menu.printTitle("Search Book By Name");
-        Menu.printEmptyRow();
-        Menu.printHorizontalBorder(true);
-        System.out.println("Please Enter the Book ID that you would like to search");
-        int bookID = InputUtil.getInteger(true);
-        //searching algorithm
-    }
-
     final static void searchByIDMenu () {
         Menu.printNewLine();
         Menu.printTitle("Search Book By ID");
@@ -31,6 +10,27 @@ public class BookExecuter {
         //Book currBook = getBook(bookID);
         //searching algorithm
     }
+    
+//    final static void searchByCategoryMenu () {
+//        Menu.printNewLine();
+//        Menu.printTitle("Search Book By Category");
+//        Menu.printEmptyRow();
+//        Menu.printHorizontalBorder(true);
+//        System.out.println("Please Enter the Book ID that you would like to search");
+//        int bookID = InputUtil.getInteger(true);
+//        //searching algorithm
+//    }
+//
+//    // optional
+//    final static void searchByNameMenu () {
+//        Menu.printNewLine();
+//        Menu.printTitle("Search Book By Name");
+//        Menu.printEmptyRow();
+//        Menu.printHorizontalBorder(true);
+//        System.out.println("Please Enter the Book ID that you would like to search");
+//        int bookID = InputUtil.getInteger(true);
+//        //searching algorithm
+//    }
 
     final static void bookViewerMenu () {
         Menu.printNewLine();

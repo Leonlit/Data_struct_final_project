@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class BookViewer {
     private Book viewedBook;
@@ -30,6 +31,15 @@ public class BookViewer {
             case 3:
                 this.waitingListInfo();
                 break;
+            case 4:
+                int choosen = 1;
+                Scanner input = new Scanner(System.in);
+                do {
+                    waitingListExecuter(choosen);
+                    choosen = input.nextInt();
+                    this.waitingListMenu();
+                }while ()
+                break;
             default:
                 Menu.invalidOptionMessage();
                 break;
@@ -43,6 +53,7 @@ public class BookViewer {
         Menu.printOrderedOption("1" ,"Show book info");
         Menu.printOrderedOption("2" ,"Show book history info");
         Menu.printOrderedOption("3" ,"Show book waiting list");
+        Menu.printOrderedOption("4" ,"Show waiting list menu");
         Menu.printEmptyRow();
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
         Menu.printOrderedOption("0" , "Main menu");
@@ -60,7 +71,7 @@ public class BookViewer {
         Menu.printCategory("Writer", viewedBook.getWriter());
         Menu.printCategory("Date", viewedBook.getDate());
         Menu.printCategory("ID", String.valueOf(viewedBook.getID()));
-        Menu.printCategory("Categories", Arrays.toString(viewedBook.getCategories()));
+        Menu.printCategory("Categories", viewedBook.getCategories());
         Menu.printEmptyRow();
         Menu.printHorizontalBorder(true);
     }
@@ -80,8 +91,31 @@ public class BookViewer {
         Menu.printEmptyRow();
         Menu.printTitle("Viewing Waiting List for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
-        //need implementation
+        viewedBook.DisplayWaitingList();
         Menu.printEmptyRow();
         Menu.printHorizontalBorder(true);
+    }
+    
+    private waitingListExecuter() {
+        
+    }
+    
+    private void waitingListMenu() {
+        Menu.printNewLine();
+        Menu.printTitle("Book Waiting List Menu for : " + viewedBook.getTitle());
+        Menu.printEmptyRow();
+        Menu.printOrderedOption("1" ,"Show book waiting list");
+        Menu.printOrderedOption("2" ,"Add new borrower to waiting list");
+        Menu.printOrderedOption("3" ,"Dequeue the waiting list");
+        Menu.printEmptyRow();
+        Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
+        Menu.printOrderedOption("0" , "Main menu");
+        Menu.printEmptyRow();
+        Menu.printEmptyRow();
+        Menu.printHorizontalBorder(true);
+    }
+    
+    public String getNextBorrower () {
+        return viewedBook.getWaitingList().deQueue();
     }
 }

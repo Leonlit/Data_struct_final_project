@@ -4,28 +4,31 @@ import java.util.*;
 //that the user want to borrow.
 public class WaitingList {
     private int maxSize = 10;
-    private int[] list;
+    private String[] list;
     private int rear = -1, front = -1;
     
-    WaitingList() {
-        list = new int[maxSize];
+    public WaitingList(String[] list) {
+        this.list = new String[list.length];
+        for (int idx = 0;idx < list.length;idx++) {
+            this.enQueue(list[idx]);
+        }
     }
     
     // check if the queue is full
-    boolean isFull(){
+    public boolean isFull(){
         return ((front == 0 && rear == maxSize - 1) ||
       (rear == (front - 1) % (maxSize - 1)));
     }
     
     // check if the queue is empty
-    boolean isEmpty(){
+    public boolean isEmpty(){
         return front == -1  ;
     }
     
     // Adding an element (no return)
-    void enQueue ( int element){
+    public void enQueue ( String element){
         if (isFull()){
-            System.out.println(" Queue is full ");
+            System.out.println("Waiting List is full ");
         //if the queue is empty we need to initialize the front and rear back
         }else if (isEmpty()) {
             front = 0;
@@ -42,11 +45,10 @@ public class WaitingList {
     }
     
      //Removing element
-    int deQueue(){
-        int element;
+    public void deQueue(){
+        String element;
         if (isEmpty()){
-            System.out.println( "Queue is empty" );
-            return -1;
+            Menu.printTextContent( "Waiting List is empty" );
         }
         
         element = list[front];
@@ -65,16 +67,28 @@ public class WaitingList {
         }else{
             front = front + 1;
         }
-        return element;
+        Menu.printMessage("Dequeued " + element + " from the waiting list");
     }
     
      // display the circular queue
-    void display() {
+    void displayQueue() {
         if (isEmpty()) {
-            Menu.printTitle("list is empty");
+            Menu.printTextContent("Waiting List is empty");
         } else {
-            Menu.printTitle("The element on the Queue are:- ");
-            Menu.printMessage(Arrays.toString(list));
+            if (rear >= front) {
+                //if the index has not become a loop print them normally
+                for (int idx = front;idx <= rear;idx++) {
+                    Menu.printOrderedOption(Integer.toString(idx + 1), list[idx]);
+                }
+            }else {
+                for (int idx = front;idx < maxSize;idx++) {
+                    Menu.printOrderedOption(Integer.toString(idx + 1), list[idx]);
+                }
+                
+                for (int idx = 0;idx <= rear;idx++) {
+                    Menu.printOrderedOption(Integer.toString(idx + 1), list[idx]);
+                }
+            }
         }
     }
 }

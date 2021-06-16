@@ -1,9 +1,11 @@
 
+import java.util.Arrays;
+
 public class Book {
     private int id;
     private String name, date, writer;
     private String categories[];
-    //private BookQueue waitingList;
+    private WaitingList waitingList;
     //private BookNetwork previousBorrower;
 
     public Book (int id, String name, String writer, String date, String[] categories,
@@ -12,7 +14,10 @@ public class Book {
         this.name = name;
         this.date = date;
         this.writer = writer;
-        System.out.println(name + ", " + date + ", " + writer);
+        this.categories = categories;
+        this.waitingList = new WaitingList(waitingList);
+        
+        //System.out.println(name + ", " + date + ", " + writer);
     }
     
     public int getID() {
@@ -30,8 +35,18 @@ public class Book {
     public String getDate() {
         return this.date;
     }
+    
+    public WaitingList getWaitingList(){
+        return this.waitingList;
+    }
 
-    public String[] getCategories () {
-        return this.categories;
+    public void DisplayWaitingList () {
+        waitingList.displayQueue();
+    }
+    
+    public String getCategories() {
+        String categories = Arrays.toString(this.categories);
+        categories = categories.replaceAll("\\[|\\]", "");
+        return categories;
     }
 }
