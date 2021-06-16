@@ -1,6 +1,4 @@
 
-import java.util.ArrayList;
-
 public class Book {
     private int id;
     private String name, date, writer;
@@ -14,6 +12,7 @@ public class Book {
         this.name = name;
         this.date = date;
         this.writer = writer;
+        System.out.println(name + ", " + date + ", " + writer);
     }
     
     public int getID() {

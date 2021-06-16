@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -7,20 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author User
- */
-
 //generate data from the json data (random everytime)
 public class DataGenerator {
-    
     final static public Book[] generateBooks () {
         Book[] books = new Book[20]; 
         try {
@@ -34,12 +21,13 @@ public class DataGenerator {
             int waitingList[][] = getJsonArrayofArrayValue(data.getJSONArray("waitingList"));
             String students[] = getJsonArrayStringValue(data.getJSONArray("students"));
             
-//            for (int idx=0;idx < bookID.length;) {
-//                String currBookCategories[] = generateCategories(categories, bookCategories[idx]);
-//                String history[][] = generateHistory(dates, students);
-//                books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
-//                                    dates[idx], currBookCategories, waitingList[idx],history);
-//            }
+            for (int idx=0;idx < bookID.length;idx++) {
+                String currBookCategories[] = generateCategories(categories, bookCategories[idx]);
+                String history[][] = generateHistory(dates, students);
+                String waiting[] = generateWaitingList(waitingList[idx], students);
+                books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
+                                  dates[idx], currBookCategories, waiting, history);
+            }
         }catch (JSONException ex) {
             System.out.println("JSON file is not valid!!!");
             ex.printStackTrace();
@@ -48,13 +36,12 @@ public class DataGenerator {
     }
     
     final static private String[][] generateHistory (String[] dates, String[] student) {
-        
         int max = 10;
         int min = 3;
         int rand = (int)(Math.random() * (max - min + 1) + min);
         String results[][] = new String[rand][2];
         String newDates[] = shuffleStringArray(dates);
-        String newStudents[] = shuffleStringArray(dates);
+        String newStudents[] = shuffleStringArray(student);
         for (int idx = 0; idx< rand; idx++) {
             results[idx] = new String[]{newDates[idx], newStudents[idx]};
         }
@@ -68,12 +55,20 @@ public class DataGenerator {
         return stringList.toArray(arr);
     }
     
-    final static private String[] generateCategories (String labels[], String categoriesIdx[]) {
+    final static private String[] generateWaitingList (int[] list, String[] students) {
+        String result[] = new String[list.length];
+        for (int idx = 0;idx < list.length;idx++) {
+            result[idx] = students[list[idx]];
+        }
+        return result;
+    }
+    
+    final static private String[] generateCategories (String labels[], int categoriesIdx[]) {
         String categories[] = new String[categoriesIdx.length];
-//        for (int idx = 0; idx < categoriesIdx.length; idx++) {
-//            System.out.println(categoriesIdx[idx]);
-//            ///categories[idx] = labels[Integer.parseInt(categoriesIdx[idx])];
-//        }
+        for (int idx = 0; idx < categoriesIdx.length; idx++) {
+            System.out.println(categoriesIdx[idx]);
+            categories[idx] = labels[categoriesIdx[idx]];
+        }
         return categories;
     }
     
