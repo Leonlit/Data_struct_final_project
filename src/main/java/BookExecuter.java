@@ -32,13 +32,14 @@ public class BookExecuter {
 //        //searching algorithm
 //    }
 
-    final static void bookViewerMenu () {
-        Menu.printNewLine();
-        Menu.printTitle("Please enter the ID for the book");
-        Menu.printNewLine();
-        int bookID = InputUtil.getInteger(true);
-        //Book currBook = getBook(bookID);
-        //BookViewer viewer = new BookViewer(currBook);
+    final static void displayBookList () {
+        Book[] books = Library.books;
+        Menu.printTitle("Displaying list of books available");
+        for (int idx = 0;idx < books.length;idx++) {
+            Menu.printOrderedOption(Integer.toString(idx), books[idx].getTitle());
+        }
+        Menu.printEmptyRow();
+        Menu.printHorizontalBorder(true);
     }
 
     // need searching algorithm

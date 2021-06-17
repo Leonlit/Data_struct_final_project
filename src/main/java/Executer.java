@@ -29,9 +29,12 @@ public class Executer {
         switch (type) {
             case 1:
                 BookExecuter.searchByIDMenu();
+                //search book
+                //sort book
+                //display book info menu
                 break;
             case 2:
-                BookExecuter.bookViewerMenu();
+                BookExecuter.displayBookList();
                 break;
             default:
                 break;

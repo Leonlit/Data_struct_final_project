@@ -1,4 +1,5 @@
 public class Library {
+    static Book books[] = DataGenerator.generateBooks();
     public static void main(String[] args) {
         Menu.mainMenu();
         Menu.searchBookMenu();
@@ -6,7 +7,6 @@ public class Library {
         Menu.checkOutMenu();
         Menu.exitMenu();
         //startEventLoop();
-        Book books[] = DataGenerator.generateBooks();
         BookViewer viewer = new BookViewer(books[0]);
         viewer.showInfo();
         viewer.historyInfo();
