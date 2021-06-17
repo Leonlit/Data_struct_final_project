@@ -61,8 +61,8 @@ public class Menu {
     final static public void searchBookMenu() {
         printTitle("Search Book details");
         printEmptyRow();
-        printOrderedOption("1" ,"Search by categories");
-        printOrderedOption("2" ,"Search by name");
+        //printOrderedOption("1" ,"Search by categories");
+        //printOrderedOption("2" ,"Search by name");
         printOrderedOption("3" ,"Search by ID");
         printOrderedOption("4" ,"View book info (by ID)");
         printEmptyRow();
@@ -113,6 +113,11 @@ public class Menu {
     
     final static public void printMessage(String msg) {
         printTitle(msg);
+        printNewLine();
+    }
+    
+    final static public void printMultiMessage(String msg[]) {
+        printMultiTitle(msg);
         printNewLine();
     }
 

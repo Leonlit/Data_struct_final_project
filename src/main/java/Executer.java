@@ -28,20 +28,13 @@ public class Executer {
     final static void executeBookCommand (int type) {
         switch (type) {
             case 1:
-                BookExecuter.searchByCategoryMenu();
-                break;
-            case 2:
-                BookExecuter.searchByNameMenu();
-                break;
-            case 3:
                 BookExecuter.searchByIDMenu();
                 break;
-            case 4:
+            case 2:
                 BookExecuter.bookViewerMenu();
                 break;
             default:
                 break;
         }
     }
-    
 }

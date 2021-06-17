@@ -1,5 +1,4 @@
 import java.util.*;
-
 //cart using queue concept to act as a cart to store book ID
 //that the user want to borrow.
 public class WaitingList {
@@ -45,7 +44,7 @@ public class WaitingList {
     }
     
      //Removing element
-    public void deQueue(){
+    public String deQueue(){
         String element;
         if (isEmpty()){
             Menu.printTextContent( "Waiting List is empty" );
@@ -68,6 +67,7 @@ public class WaitingList {
             front = front + 1;
         }
         Menu.printMessage("Dequeued " + element + " from the waiting list");
+        return element;
     }
     
      // display the circular queue

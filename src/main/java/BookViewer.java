@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class BookViewer {
     private Book viewedBook;
 
@@ -29,16 +26,12 @@ public class BookViewer {
                 this.historyInfo();
                 break;
             case 3:
-                this.waitingListInfo();
-                break;
-            case 4:
                 int choosen = 1;
-                Scanner input = new Scanner(System.in);
                 do {
                     waitingListExecuter(choosen);
-                    choosen = input.nextInt();
+                    choosen = InputUtil.getInteger(false);
                     this.waitingListMenu();
-                }while ()
+                }while (choosen >0);
                 break;
             default:
                 Menu.invalidOptionMessage();
@@ -52,8 +45,7 @@ public class BookViewer {
         Menu.printEmptyRow();
         Menu.printOrderedOption("1" ,"Show book info");
         Menu.printOrderedOption("2" ,"Show book history info");
-        Menu.printOrderedOption("3" ,"Show book waiting list");
-        Menu.printOrderedOption("4" ,"Show waiting list menu");
+        Menu.printOrderedOption("3" ,"Show waiting list menu");
         Menu.printEmptyRow();
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
         Menu.printOrderedOption("0" , "Main menu");
@@ -96,8 +88,47 @@ public class BookViewer {
         Menu.printHorizontalBorder(true);
     }
     
-    private waitingListExecuter() {
-        
+    private void waitingListExecuter(int option) {
+        boolean done = false;
+        switch(option) {
+            case -1:
+                Menu.printReturnedPreviousMenu("Returning to Search Book Details Menu");
+                break;
+            case 0:
+                Menu.printReturnedMainMenu();
+                break;
+            case 1:
+                waitingListInfo();
+                break;
+            case 2:
+                while (!done) {
+                    try{
+                        String name = InputUtil.getString(false);
+                        viewedBook.getWaitingList().enQueue(name);
+                        Menu.printMessage("Added " + name + " into the waiting list for borrowing" + viewedBook.getTitle());
+                    }catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    done = true;
+                }
+                break;
+            case 3:
+                while (!done) {
+                    try{
+                        String nextBorrower = viewedBook.getWaitingList().deQueue();
+                        String message = "Removed " + nextBorrower + " into the waiting list for borrowing" + viewedBook.getTitle();
+                        Menu.printMessage(message);
+                        // need graph
+                        //viewedBook.
+                    }catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    done = true;
+                }
+                break;
+            default:
+                Menu.printMessage("Invalid option!!! Please choose again");
+        }
     }
     
     private void waitingListMenu() {
