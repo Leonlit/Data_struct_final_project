@@ -30,6 +30,10 @@ public class Executer {
             case 1:
                 BookExecuter.searchByIDMenu();
                 //search book
+                SearchBook bookSearcher = new SearchBook(Library.books);
+                Menu.printMessage("Please enter the Book Number to search for the book (length of 5)");
+                int input = InputUtil.getInteger(true);
+                bookSearcher.find(input);
                 //sort book
                 //display book info menu
                 break;
