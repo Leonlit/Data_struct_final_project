@@ -1,5 +1,7 @@
 public class Executer {
+    private static boolean done = false;
     final static void executeOption(int option) {
+        done = false;
         switch (option) {
             case 1:
                 searchBook();
@@ -16,26 +18,35 @@ public class Executer {
     }
 
     final static void searchBook () {
-        int choosen = -1;
-        while (choosen != 0) {
+        int choosen;
+        while (!done) {
             Menu.searchBookMenu();
             choosen = InputUtil.getInteger(false);
             executeBookCommand(choosen);
+            if (choosen == 0)
+                done = true;
         }
-        Menu.printReturnedMainMenu();
     }
 
     final static void executeBookCommand (int type) {
         switch (type) {
+            case 0:
+                Menu.printReturnedMainMenu();
+                break;
             case 1:
                 BookExecuter.searchByIDMenu();
+                int option = 0;
                 //search book
                 SearchBook bookSearcher = new SearchBook(Library.books);
-                Menu.printMessage("Please enter the Book Number to search for the book (length of 5)");
                 int input = InputUtil.getInteger(true);
-                bookSearcher.find(input);
-                //sort book
-                //display book info menu
+                Book searched = bookSearcher.find(input);
+                if (searched != null ) {
+                    BookViewer viewer = new BookViewer(searched);
+                    option = viewer.startView();
+                    if ( option == 0) {
+                        done = true;
+                    }
+                }
                 break;
             case 2:
                 BookExecuter.displayBookList();

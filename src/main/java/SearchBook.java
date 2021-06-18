@@ -1,9 +1,4 @@
-import java.util.Scanner;
 
-/**
- *
- * @author End User
- */
 public class SearchBook {
     public static TreeNode root;
     private Book books[];
@@ -50,13 +45,13 @@ public class SearchBook {
         return root;
     }
     
+    //for testing the position
     public void displayTree (TreeNode root) {
         if (root == null)
             return;
         displayTree(root.getLeft());
         System.out.print(root.getData().getID() + "   ");
         displayTree(root.getRight());
-         System.out.println();
     }
 }
 class TreeNode{

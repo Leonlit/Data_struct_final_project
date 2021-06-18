@@ -70,7 +70,6 @@ public class DataGenerator {
         for (int idx = 0; idx < max; idx++) {
             categories[idx] = labels[idx];
         }
-        System.out.println(Arrays.toString(categories));
         return categories;
     }
     

@@ -21,29 +21,6 @@ public class Menu {
                                          - (SPACE_BETWEEN * 2);             // 
                                                                             // because they will be printed later
 
-    final static public void showMenu(int type) {
-        switch (type) {
-            case -1:
-                exitMenu();
-                break;
-            case 0:
-                mainMenu();
-                break;
-            case 1:
-                searchBookMenu();
-                break;
-            case 2:
-                cartMenu();
-                break;
-            case 3:
-                checkOutMenu();
-                break;
-            default:
-                invalidOptionMessage();
-                break;
-        }
-    }
-    
     // main menu
     final static public void mainMenu() {
         printTitle("Main Menu");
@@ -54,6 +31,7 @@ public class Menu {
         printEmptyRow();
         printOrderedOption("-1" ,"Exit");
         printEmptyRow();
+        printRequestOption();
         printHorizontalBorder(true);
     }
 
@@ -61,14 +39,12 @@ public class Menu {
     final static public void searchBookMenu() {
         printTitle("Search Book details");
         printEmptyRow();
-        //printOrderedOption("1" ,"Search by categories");
-        //printOrderedOption("2" ,"Search by name");
-        printOrderedOption("3" ,"Search by ID");
-        printOrderedOption("4" ,"View book info (by ID)");
+        printOrderedOption("1" ,"Search by ID");
+        printOrderedOption("2" ,"View book list (by ID)");
         printEmptyRow();
         printOrderedOption("0" , "Main menu");
         printEmptyRow();
-        printEmptyRow();
+        printRequestOption();
         printHorizontalBorder(true);
     }
 
@@ -114,6 +90,12 @@ public class Menu {
     final static public void printMessage(String msg) {
         printTitle(msg);
         printNewLine();
+    }
+    
+    final static public void printRequestOption () {
+        printEmptyRow();
+        printTextContent("Please choose an opton:");
+        printEmptyRow();
     }
     
     final static public void printMultiMessage(String msg[]) {

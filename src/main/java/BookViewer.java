@@ -1,20 +1,25 @@
 public class BookViewer {
     private Book viewedBook;
+    private int option;
 
     public BookViewer (Book viewedBook) {
         this.viewedBook = viewedBook;
-        int option = 0;
+    }
+    
+    public int startView () {
+        this.option = 0;
         do {
             showMenu();
-            option = InputUtil.getInteger(false);
-            getView(option);
-        }while (option > 0);
+            this.option = InputUtil.getInteger(false);
+            getView(this.option);
+        }while (this.option > 0);
+        return this.option;
     }
 
     public void getView (int option) {
         switch (option) {
             case -1:
-                Menu.printReturnedPreviousMenu("Returning to Search Book Details Menu");
+                Menu.printReturnedPreviousMenu("Book Search Menu");
                 break;
             case 0:
                 Menu.printReturnedMainMenu();
@@ -28,10 +33,12 @@ public class BookViewer {
             case 3:
                 int choosen = 1;
                 do {
-                    waitingListExecuter(choosen);
+                    waitingListMenu();
                     choosen = InputUtil.getInteger(false);
-                    this.waitingListMenu();
+                    waitingListExecuter(choosen);
                 }while (choosen >0);
+                if (choosen == 0) 
+                    this.option = 0;
                 break;
             default:
                 Menu.invalidOptionMessage();
@@ -50,13 +57,12 @@ public class BookViewer {
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
         Menu.printOrderedOption("0" , "Main menu");
         Menu.printEmptyRow();
-        Menu.printEmptyRow();
+        Menu.printRequestOption();
         Menu.printHorizontalBorder(true);
     }
 
     public void showInfo() {
         Menu.printNewLine();
-        Menu.printEmptyRow();
         Menu.printTitle("Viewing Info for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         Menu.printCategory("Name", viewedBook.getTitle());
@@ -85,6 +91,21 @@ public class BookViewer {
         Menu.printEmptyRow();
         viewedBook.DisplayWaitingList();
         Menu.printEmptyRow();
+        Menu.printHorizontalBorder(true);
+    }
+      
+    private void waitingListMenu() {
+        Menu.printNewLine();
+        Menu.printTitle("Book Waiting List Menu for : " + viewedBook.getTitle());
+        Menu.printEmptyRow();
+        Menu.printOrderedOption("1" ,"Show book waiting list");
+        Menu.printOrderedOption("2" ,"Add new borrower to waiting list");
+        Menu.printOrderedOption("3" ,"Dequeue the waiting list");
+        Menu.printEmptyRow();
+        Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
+        Menu.printOrderedOption("0" , "Main menu");
+        Menu.printEmptyRow();
+        Menu.printRequestOption();
         Menu.printHorizontalBorder(true);
     }
     
@@ -129,21 +150,6 @@ public class BookViewer {
             default:
                 Menu.printMessage("Invalid option!!! Please choose again");
         }
-    }
-    
-    private void waitingListMenu() {
-        Menu.printNewLine();
-        Menu.printTitle("Book Waiting List Menu for : " + viewedBook.getTitle());
-        Menu.printEmptyRow();
-        Menu.printOrderedOption("1" ,"Show book waiting list");
-        Menu.printOrderedOption("2" ,"Add new borrower to waiting list");
-        Menu.printOrderedOption("3" ,"Dequeue the waiting list");
-        Menu.printEmptyRow();
-        Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
-        Menu.printOrderedOption("0" , "Main menu");
-        Menu.printEmptyRow();
-        Menu.printEmptyRow();
-        Menu.printHorizontalBorder(true);
     }
     
     public String getNextBorrower () {
