@@ -23,12 +23,12 @@ public class DataGenerator {
             String dates[] = getJsonArrayStringValue(data.getJSONArray("dates"));
             String categories[] = getJsonArrayStringValue(data.getJSONArray("categories"));
             int waitingList[][] = getJsonArrayofArrayValue(data.getJSONArray("waitingList"));
-            String students[] = getJsonArrayStringValue(data.getJSONArray("students"));
+            String peoples[] = getJsonArrayStringValue(data.getJSONArray("students"));
             
             for (int idx=0;idx < bookID.length;idx++) {
                 String currBookCategories[] = generateCategories(shuffleStringArray(categories), genRandomNumber(2, 4));
-                String history[][] = generateHistory(students);
-                String waiting[] = generateWaitingList(waitingList[idx], students);
+                String history[][] = generateHistory(peoples);
+                String waiting[] = generateWaitingList(waitingList[idx], peoples);
                 Random random = new Random();
                 books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
                                   dates[idx], currBookCategories, waiting, history, random.nextBoolean());
@@ -39,7 +39,7 @@ public class DataGenerator {
         return books;
     }
     
-    private static String[][] generateHistory (String[] student) {
+    private static String[][] generateHistory (String[] people) {
         int rand = genRandomNumber(3, 10);
         String results[][] = new String[rand][2];
         String newDates[] = new String[rand];
@@ -47,9 +47,9 @@ public class DataGenerator {
             newDates[idx] = generateDateBetweenAYear();
         }
         String sortedDates[] = sortDate(newDates);
-        String newStudents[] = shuffleStringArray(student);
+        String newPeoples[] = shuffleStringArray(people);
         for (int idx = 0; idx< rand; idx++) {
-            results[idx] = new String[]{sortedDates[idx], newStudents[idx]};
+            results[idx] = new String[]{sortedDates[idx], newPeoples[idx]};
         }
         return results;
     }
@@ -97,10 +97,10 @@ public class DataGenerator {
         return stringList.toArray(arr);
     }
     
-    private static String[] generateWaitingList (int[] list, String[] students) {
+    private static String[] generateWaitingList (int[] list, String[] peoples) {
         String result[] = new String[list.length];
         for (int idx = 0;idx < list.length;idx++) {
-            result[idx] = students[list[idx]];
+            result[idx] = peoples[list[idx]];
         }
         return result;
     }
