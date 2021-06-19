@@ -26,7 +26,7 @@ public class Menu {
         printHorizontalBorder(true);
     }
 
-    // search book's menu
+    // search book's menu    
     final static public void searchBookMenu() {
         printTitle("Search Book details");
         printEmptyRow();
@@ -38,17 +38,24 @@ public class Menu {
         printRequestOption();
         printHorizontalBorder(true);
     }
+    
+    final static public void cartMenu() {
+        printTitle("View Cart items Menu");
+        printEmptyRow();
+        printOrderedOption("1" ,"View cart item list");
+        printOrderedOption("2" ,"View cart item's detail");
+        printOrderedOption("3", "Remove item from cart");
+        printEmptyRow();
+        printOrderedOption("0" , "Main menu");
+        printEmptyRow();
+        printRequestOption();
+        printHorizontalBorder(true);
+    }
 
     // book's menu
     final static public void BookMenu(String title) {
         printTitle("Viewing Book Details");
         printTitle(title);
-        printNewLine();
-    }
-
-    // cart's menu
-    final static public void cartMenu() {
-        printTitle("Viewing cart items");
         printNewLine();
     }
 
@@ -73,8 +80,8 @@ public class Menu {
         printMessage(msg);
     }
 
-    final static public void printReturnedPreviousMenu (String prevMenu) {
-        String msg = "Returning to " + prevMenu;
+    final static public void printReturnedPreviousMenu () {
+        String msg = "Returning to previous menu";
         printMessage(msg);
     }
     

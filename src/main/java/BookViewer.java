@@ -23,7 +23,7 @@ public class BookViewer {
     public void getView (int option) {
         switch (option) {
             case -1:
-                Menu.printReturnedPreviousMenu("Book Search Menu");
+                Menu.printReturnedPreviousMenu();
                 break;
             case 0:
                 Menu.printReturnedMainMenu();
@@ -131,7 +131,7 @@ public class BookViewer {
         boolean done = false;
         switch(option) {
             case -1:
-                Menu.printReturnedPreviousMenu("Returning to Search Book Details Menu");
+                Menu.printReturnedPreviousMenu();
                 break;
             case 0:
                 Menu.printReturnedMainMenu();
