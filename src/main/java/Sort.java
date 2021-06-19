@@ -1,29 +1,38 @@
 public class Sort {
      
-    private int tempArr[];
+    private Book tempArr[];
     private int arrLength;
  
-    public void sort(int[] arr) {
-         
-        if (arr == null || arr.length == 0) {
-            return;
+    public Sort(Book[] arr) {
+        if (!isArrEmpty(arr)) {
+            this.tempArr = arr;
+            arrLength = arr.length;
+        }else {
+            Menu.printMessage("Books list is empty");
         }
-        this.tempArr = arr;
-        arrLength = arr.length;
-        quickSort(0, arrLength - 1);
     }
-     private void quickSort(int prevLower, int prevUpper) {
+    
+    public Book[] sortBooks() {
+        quickSort(0, arrLength - 1);
+        return this.tempArr;
+    }
+    
+    private boolean isArrEmpty (Book arr[]) {
+        return arr == null || arr.length == 0;
+    }
+    
+    private void quickSort(int prevLower, int prevUpper) {
          
         int lower = prevLower;
         int upper = prevUpper;
         // getting the pivot to compare data to 
-        int pivot = tempArr[prevLower+(prevUpper-prevLower)/2];
+        Book pivot = tempArr[prevLower+(prevUpper-prevLower)/2];
         // separating the array into two smaller section
         while (lower <= upper) {
-            while (tempArr[lower] < pivot) {
+            while (tempArr[lower].getID() < pivot.getID()) {
                 lower++;
             }
-            while (tempArr[upper] > pivot) {
+            while (tempArr[upper].getID() > pivot.getID()) {
                 upper--;
             }
             if (lower <= upper) {
@@ -41,7 +50,7 @@ public class Sort {
     }
  
     private void swappingValue(int i, int j) {
-        int temp = tempArr[i];
+        Book temp = tempArr[i];
         tempArr[i] = tempArr[j];
         tempArr[j] = temp;
     }

@@ -26,6 +26,7 @@ public class DataGenerator {
                 String waiting[] = generateWaitingList(waitingList[idx], students);
                 books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
                                   dates[idx], currBookCategories, waiting, history);
+                System.out.println(books[idx].getCategories());
             }
         }catch (JSONException ex) {
             System.out.println("JSON file is not valid!!!");

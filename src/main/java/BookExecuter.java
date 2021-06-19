@@ -10,7 +10,8 @@ public class BookExecuter {
     }
 
     final static void displayBookList () {
-        Book[] books = Library.books;
+        Sort sorter = new Sort(Library.books);
+        Book[] books = sorter.sortBooks();
         Menu.printTitle("Displaying list of books available");
         Menu.printEmptyRow();
         for (int idx = 0;idx < books.length;idx++) {

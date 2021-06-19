@@ -27,7 +27,7 @@ public class WaitingList {
     // Adding an element (no return)
     public void enQueue ( String element){
         if (isFull()){
-            System.out.println("Waiting List is full ");
+            Menu.printTextContent("Waiting List is full ");
         //if the queue is empty we need to initialize the front and rear back
         }else if (isEmpty()) {
             front = 0;
