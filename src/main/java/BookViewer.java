@@ -1,3 +1,7 @@
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class BookViewer {
     private Book viewedBook;
     private int option;
@@ -70,16 +74,30 @@ public class BookViewer {
         Menu.printCategory("Date", viewedBook.getDate());
         Menu.printCategory("ID", String.valueOf(viewedBook.getID()));
         Menu.printCategory("Categories", viewedBook.getCategories());
+        String[] borrower = viewedBook.getCurrentBorrower();
+        String status = "";
+        if (borrower != null) {
+            status = borrower[1] + ", " + borrower[0];
+        }else {
+            status = "None";
+        }
+        Menu.printCategory("Borrowed By", status);
         Menu.printEmptyRow();
         Menu.printHorizontalBorder(true);
     }
 
     public void historyInfo() {
+        String history[][] = viewedBook.getHistoryList().getAll();
         Menu.printNewLine();
+        Menu.printTitle("Borrower history list for " + viewedBook.getTitle());
         Menu.printEmptyRow();
-        Menu.printTitle("Viewing History Info for : " + viewedBook.getTitle());
-        Menu.printEmptyRow();
-        //need implementation
+        for (int idx = 0; idx < history.length;idx++) {
+            String msg = history[idx][0] + "    " + history[idx][1];
+            if (idx == history.length - 1  && viewedBook.isBorrowed()) {
+                msg += " ( Currently borrowing )";
+            }
+            Menu.printOrderedOption(Integer.toString(idx + 1), msg);
+        }
         Menu.printEmptyRow();
         Menu.printHorizontalBorder(true);
     }
@@ -124,27 +142,31 @@ public class BookViewer {
             case 2:
                 while (!done) {
                     try{
+                        Menu.printTitle("Please enter the name to be added into the waiting list:");
                         String name = InputUtil.getString(false);
                         viewedBook.getWaitingList().enQueue(name);
-                        Menu.printMessage("Added " + name + " into the waiting list for borrowing" + viewedBook.getTitle());
+                        Menu.printMessage("Added " + name + " into the waiting list");
                     }catch (Exception ex) {
-                        ex.printStackTrace();
                     }
                     done = true;
                 }
                 break;
             case 3:
-                while (!done) {
-                    try{
-                        String nextBorrower = viewedBook.getWaitingList().deQueue();
-                        String message = "Removed " + nextBorrower + " into the waiting list for borrowing" + viewedBook.getTitle();
-                        Menu.printMessage(message);
-                        // need graph
-                        //viewedBook.
-                    }catch (Exception ex) {
-                        ex.printStackTrace();
+                if (viewedBook.isBorrowed()) {
+                    Menu.printMessage("Can't dequeue waiting list. The book is currently borrowed by " + viewedBook.getCurrentBorrower());
+                }else {
+                    while (!done) {
+                        try{
+                            String nextBorrower = viewedBook.getWaitingList().deQueue();
+                            String message = "Removed " + nextBorrower + " from the waiting list for borrowing " + viewedBook.getTitle();
+                            Menu.printMessage(message);
+                            String currDate = getCurrentDate();
+                            viewedBook.getHistoryList().pushNode(new String[]{currDate, nextBorrower});
+                            viewedBook.setBorrowed();
+                        }catch (Exception ex) {
+                        }
+                        done = true;
                     }
-                    done = true;
                 }
                 break;
             default:
@@ -152,7 +174,15 @@ public class BookViewer {
         }
     }
     
-    public String getNextBorrower () {
+    private String getCurrentDate () {
+        String currDate = "";
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        currDate = formatter.format(date);
+        return currDate;
+    }
+    
+    private String getNextBorrower () {
         return viewedBook.getWaitingList().deQueue();
     }
 }

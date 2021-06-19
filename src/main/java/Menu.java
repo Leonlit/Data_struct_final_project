@@ -1,12 +1,3 @@
-
-/**
- * Menu class
- *      used to print different type of menu for the program and most functions can be reused
- * @author Tung Lit Onn a.k.a Leonlit
- * @MatricNumber 056200
- */
-
-
 public class Menu {
     //changable parameters
     final static String BOREDR_SYMBOL = "#";                                // Symbol for the borders

@@ -1,15 +1,15 @@
-import java.util.*;
+
 //cart using queue concept to act as a cart to store book ID
 //that the user want to borrow.
 public class WaitingList {
-    private int maxSize = 10;
+    private final int maxSize = 10;
     private String[] list;
     private int rear = -1, front = -1;
     
     public WaitingList(String[] list) {
-        this.list = new String[list.length];
-        for (int idx = 0;idx < list.length;idx++) {
-            this.enQueue(list[idx]);
+        this.list = new String[maxSize];
+        for (String list1 : list) {
+            this.enQueue(list1);
         }
     }
     
@@ -25,7 +25,7 @@ public class WaitingList {
     }
     
     // Adding an element (no return)
-    public void enQueue ( String element){
+    public void enQueue ( String newWaiterName){
         if (isFull()){
             Menu.printTextContent("Waiting List is full ");
         //if the queue is empty we need to initialize the front and rear back
@@ -40,17 +40,17 @@ public class WaitingList {
         }else {
             rear = rear + 1;
         }
-        list[rear] = element;
+        list[rear] = newWaiterName;
     }
     
      //Removing element
     public String deQueue(){
-        String element;
+        String name;
         if (isEmpty()){
             Menu.printTextContent( "Waiting List is empty" );
         }
         
-        element = list[front];
+        name = list[front];
         
         //after taking the element, if front and rear same index
         //reinitialize everything
@@ -66,8 +66,8 @@ public class WaitingList {
         }else{
             front = front + 1;
         }
-        Menu.printMessage("Dequeued " + element + " from the waiting list");
-        return element;
+        Menu.printMessage("Dequeued " + name + " from the waiting list");
+        return name;
     }
     
      // display the circular queue
@@ -75,18 +75,18 @@ public class WaitingList {
         if (isEmpty()) {
             Menu.printTextContent("Waiting List is empty");
         } else {
+            int index = 1;
             if (rear >= front) {
                 //if the index has not become a loop print them normally
                 for (int idx = front;idx <= rear;idx++) {
-                    Menu.printOrderedOption(Integer.toString(idx + 1), list[idx]);
+                    Menu.printOrderedOption(Integer.toString(index++), list[idx]);
                 }
             }else {
                 for (int idx = front;idx < maxSize;idx++) {
-                    Menu.printOrderedOption(Integer.toString(idx + 1), list[idx]);
+                    Menu.printOrderedOption(Integer.toString(index++), list[idx]);
                 }
-                
                 for (int idx = 0;idx <= rear;idx++) {
-                    Menu.printOrderedOption(Integer.toString(idx + 1), list[idx]);
+                    Menu.printOrderedOption(Integer.toString(index++), list[idx]);
                 }
             }
         }

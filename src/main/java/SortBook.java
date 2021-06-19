@@ -1,9 +1,8 @@
-public class Sort {
-     
+public class SortBook {
     private Book tempArr[];
     private int arrLength;
- 
-    public Sort(Book[] arr) {
+    
+    public SortBook(Book[] arr) {
         if (!isArrEmpty(arr)) {
             this.tempArr = arr;
             arrLength = arr.length;
@@ -22,7 +21,6 @@ public class Sort {
     }
     
     private void quickSort(int prevLower, int prevUpper) {
-         
         int lower = prevLower;
         int upper = prevUpper;
         // getting the pivot to compare data to 

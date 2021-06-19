@@ -1,5 +1,4 @@
 public class BookExecuter {
-    // optional
     final static void searchByIDMenu () {
         Menu.printNewLine();
         Menu.printMultiTitle(new String[]{
@@ -10,7 +9,7 @@ public class BookExecuter {
     }
 
     final static void displayBookList () {
-        Sort sorter = new Sort(Library.books);
+        SortBook sorter = new SortBook(Library.books);
         Book[] books = sorter.sortBooks();
         Menu.printTitle("Displaying list of books available");
         Menu.printEmptyRow();

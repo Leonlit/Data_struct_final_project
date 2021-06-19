@@ -15,7 +15,6 @@ public class DataReader {
             File directory = new File(".");
             String fileName = directory.getCanonicalPath().concat(File.separator + "assets") 
                                 + File.separator + "books.json";
-            System.out.println(fileName);
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {

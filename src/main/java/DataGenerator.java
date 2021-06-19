@@ -1,10 +1,15 @@
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.GregorianCalendar;
+import java.util.Random;
 
 //generate data from the json data (random everytime)
 public class DataGenerator {
@@ -22,43 +27,77 @@ public class DataGenerator {
             
             for (int idx=0;idx < bookID.length;idx++) {
                 String currBookCategories[] = generateCategories(shuffleStringArray(categories), genRandomNumber(2, 4));
-                String history[][] = generateHistory(dates, students);
+                String history[][] = generateHistory(students);
                 String waiting[] = generateWaitingList(waitingList[idx], students);
+                Random random = new Random();
                 books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
-                                  dates[idx], currBookCategories, waiting, history);
-                System.out.println(books[idx].getCategories());
+                                  dates[idx], currBookCategories, waiting, history, random.nextBoolean());
             }
         }catch (JSONException ex) {
-            System.out.println("JSON file is not valid!!!");
-            ex.printStackTrace();
+            Menu.printMessage("JSON file is not valid!!!");
         }
         return books;
     }
     
-    final static private String[][] generateHistory (String[] dates, String[] student) {
+    private static String[][] generateHistory (String[] student) {
         int rand = genRandomNumber(3, 10);
         String results[][] = new String[rand][2];
-        String newDates[] = shuffleStringArray(dates);
+        String newDates[] = new String[rand];
+        for (int idx = 0;idx < rand;idx++) {
+            newDates[idx] = generateDateBetweenAYear();
+        }
+        String sortedDates[] = sortDate(newDates);
         String newStudents[] = shuffleStringArray(student);
         for (int idx = 0; idx< rand; idx++) {
-            results[idx] = new String[]{newDates[idx], newStudents[idx]};
+            results[idx] = new String[]{sortedDates[idx], newStudents[idx]};
         }
         return results;
     }
     
-    final static private int genRandomNumber (int min, int max) {
+    private static String[] sortDate (String[] dates) {
+        int timeStamp[] = new int[dates.length];
+        for (int idx = 0; idx < dates.length;idx++) {
+            timeStamp[idx] = getTimeStamp(dates[idx]);
+        }
+        for (int idx = 0;idx < dates.length;idx++) {
+            for (int counter = 1;counter < dates.length - idx;counter++) {
+                if (timeStamp[counter] < timeStamp[counter - 1]) {
+                    String temp = dates[counter];
+                    dates[counter] = dates[counter - 1];
+                    dates[counter - 1] = temp;
+                    int tempTime = timeStamp[counter];
+                    timeStamp[counter] = timeStamp[counter - 1];
+                    timeStamp[counter - 1] = tempTime;
+                }
+            }
+        }
+        return dates;
+    }
+    
+    private static int getTimeStamp (String date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date converted = formatter.parse(date);
+            return (int)(converted.getTime() / 1000);
+        } catch (ParseException ex) {
+            Menu.printMessage("Error in converting date to timestamp");
+        }
+        return -1;
+    }
+    
+    private static int genRandomNumber (int min, int max) {
         int rand = (int)(Math.random() * (max - min + 1) + min);
         return rand;
     }
     
-    final static private String[] shuffleStringArray (String[] arr) {
+    private static String[] shuffleStringArray (String[] arr) {
 
         List<String> stringList = Arrays.asList(arr);
         Collections.shuffle(stringList);
         return stringList.toArray(arr);
     }
     
-    final static private String[] generateWaitingList (int[] list, String[] students) {
+    private static String[] generateWaitingList (int[] list, String[] students) {
         String result[] = new String[list.length];
         for (int idx = 0;idx < list.length;idx++) {
             result[idx] = students[list[idx]];
@@ -66,49 +105,62 @@ public class DataGenerator {
         return result;
     }
     
-    final static private String[] generateCategories (String labels[], int max) {
+    private static String[] generateCategories (String labels[], int max) {
         String categories[] = new String[max];
-        for (int idx = 0; idx < max; idx++) {
-            categories[idx] = labels[idx];
-        }
+        System.arraycopy(labels, 0, categories, 0, max);
         return categories;
     }
     
-    final static private int[][] getJsonArrayofArrayValue (JSONArray arr) {
+    private static int[][] getJsonArrayofArrayValue (JSONArray arr) {
         int results[][] = new int[20][7];
         try {
             for (int idx = 0;idx < arr.length();idx++) {
                 results[idx] = getJsonArrayIntValue(arr.getJSONArray(idx));
             }
         }catch (JSONException ex) {
-            System.out.println("JSON file is not valid!!!");
-            ex.printStackTrace();
+            Menu.printMessage("JSON file is not valid!!!");
         }
         return results;
     }
     
-    final static private String[] getJsonArrayStringValue (JSONArray arr) {
+    private static String[] getJsonArrayStringValue (JSONArray arr) {
         String results[] = new String[arr.length()];
         try {
             for (int idx = 0;idx < arr.length();idx++) {
                 results[idx] = arr.getString(idx);
             }
         }catch (JSONException ex) {
-            System.out.println("JSON file is not valid!!!");
+            Menu.printMessage("JSON file is not valid!!!");
         }
         return results;
     }
     
-    final static private int[] getJsonArrayIntValue (JSONArray arr) {
+    private static int[] getJsonArrayIntValue (JSONArray arr) {
         int results[] = new int[arr.length()];
         try {
             for (int idx = 0;idx < arr.length();idx++) {
                 results[idx] = arr.getInt(idx);
             }
         }catch (JSONException ex) {
-            System.out.println("JSON file is not valid!!!");
+            Menu.printMessage("JSON file is not valid!!!");
         }
         return results;
+    }
+    
+    final static public String generateDateBetweenAYear () {
+        GregorianCalendar gc = new GregorianCalendar();
+        int currYear = Year.now().getValue();
+        int year = randBetween(currYear - 1, currYear);
+        gc.set(GregorianCalendar.YEAR, year);
+        int dayOfYear = randBetween(1, gc.getActualMaximum(GregorianCalendar.DAY_OF_YEAR));
+        gc.set(GregorianCalendar.DAY_OF_YEAR, dayOfYear);
+        String date = gc.get(gc.YEAR) + "-" + (gc.get(gc.MONTH) + 1) 
+                        + "-" + gc.get(gc.DAY_OF_MONTH);
+        return date;
+    }
+    
+    public static int randBetween(int start, int end) {
+        return start + (int)Math.round(Math.random() * (end - start));
     }
     
 }

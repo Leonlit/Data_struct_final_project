@@ -1,7 +1,7 @@
 
 public class SearchBook {
-    public static TreeNode root;
-    private Book books[];
+    public TreeNode root;
+    private final Book books[];
     
     public SearchBook(Book books[]){
         this.books = books;
@@ -26,8 +26,8 @@ public class SearchBook {
     }
     
     private void generateTree () {        
-        for (int idx = 0;idx < books.length;idx++) {
-            this.root = insertIntoTree(this.root, books[idx]);
+        for (Book book : books) {
+            this.root = insertIntoTree(this.root, book);
         }
     }
     
