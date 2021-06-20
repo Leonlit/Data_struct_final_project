@@ -13,6 +13,7 @@ public class Executer {
                 checkOutCart();
                 break;
             default:
+                Menu.invalidOptionMessage();
                 break;
         }
     }
@@ -54,6 +55,7 @@ public class Executer {
                 BookExecuter.displayBookList();
                 break;
             default:
+                Menu.invalidOptionMessage();
                 break;
         }
     }
@@ -106,6 +108,7 @@ public class Executer {
                 temp.removeBookfromCart(choosen - 1);
                 break;
             default:
+                Menu.invalidOptionMessage();
                 break;
         }
     }
