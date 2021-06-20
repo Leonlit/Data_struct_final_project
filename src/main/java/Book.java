@@ -95,10 +95,14 @@ public class Book {
         waitingList.displayQueue();
     }
     
-    public String getCategories() {
+    public String getCategoriesToString() {
         String categories = Arrays.toString(this.categories);
         categories = categories.replaceAll("\\[|\\]", "");
         return categories;
+    }
+    
+    public String[] getCategories() {
+        return this.categories;
     }
     
     public HistoryList getHistoryList () {

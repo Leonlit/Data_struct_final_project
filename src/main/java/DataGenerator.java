@@ -25,7 +25,7 @@ public class DataGenerator {
             String peoples[] = getJsonArrayStringValue(data.getJSONArray("students"));
             
             for (int idx=0;idx < bookID.length;idx++) {
-                String currBookCategories[] = generateCategories(shuffleStringArray(categories), genRandomNumber(2, 4));
+                String currBookCategories[] = generateCategories(shuffleStringArray(categories), genRandomNumber(1, 3));
                 String history[][] = generateHistory(peoples);
                 String waiting[] = generateWaitingList(peoples);
                 Random random = new Random();

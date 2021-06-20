@@ -94,7 +94,7 @@ public class BookViewer {
         Menu.printCategory("Writer", viewedBook.getWriter());
         Menu.printCategory("Date", viewedBook.getDate());
         Menu.printCategory("ID", String.valueOf(viewedBook.getID()));
-        Menu.printCategory("Categories", viewedBook.getCategories());
+        Menu.printCategory("Categories", viewedBook.getCategoriesToString());
         String[] borrower = viewedBook.getCurrentBorrower();
         String status = "";
         if (borrower != null) {
