@@ -8,6 +8,7 @@ public class Book {
     private WaitingList waitingList;
     private boolean borrowed;
     private boolean isInCart;
+    private boolean inWaitingList = false;
 
     public Book (int id, String name, String writer, String date, String[] categories,
             String[] waitingList, String[][] history, boolean borrowed) {
@@ -49,8 +50,21 @@ public class Book {
         return this.borrowed;
     }
     
+    public boolean isInWaitingList () {
+        return inWaitingList;
+    }
+    
     public void setBorrowed() {
         this.borrowed = true;
+    }
+    
+    public void setReturned() {
+        if (!isBorrowed()) {
+            Menu.printMessage("The Book " + getTitle() + " is not borrowed by anyone at the moment");
+            return;
+        }
+        Menu.printMessage("Book returned By " + getCurrentBorrower());
+        this.borrowed = false;
     }
     
     public void setInCart () {

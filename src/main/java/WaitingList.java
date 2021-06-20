@@ -43,11 +43,16 @@ public class WaitingList {
         list[rear] = newWaiterName;
     }
     
-     //Removing element
+    public String getFront() {
+        return list[front];
+    }
+    
+    //Removing element
     public String deQueue(){
         String name;
         if (isEmpty()){
             Menu.printTextContent( "Waiting List is empty" );
+            return null;
         }
         
         name = list[front];

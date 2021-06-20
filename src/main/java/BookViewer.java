@@ -44,6 +44,28 @@ public class BookViewer {
                 if (choosen == 0) 
                     this.option = 0;
                 break;
+            case 4:
+                if (viewedBook.isBorrowed()) {
+                    Menu.printMessage("Failed! The book is currently borrowed by " + viewedBook.getCurrentBorrower());
+                    return;
+                }else {
+                    if (viewedBook.isInCart()) {
+                        Menu.printMessage("The Book is already in your cart!");
+                        return;
+                    }else {
+                        if (viewedBook.getWaitingList().isEmpty() || 
+                                viewedBook.getWaitingList().getFront() == Library.username) {
+                            Library.cart.addBookIntoCart(viewedBook);
+                        }else {
+                            Menu.printMessage("The Waiting List is not empty, you can't borrow"
+                                    + " the Book before the others that are currently waiting before you!");
+                        }
+                    }
+                }
+                break;
+            case 5:
+                viewedBook.setReturned();
+                break;
             default:
                 Menu.invalidOptionMessage();
                 break;
@@ -58,6 +80,7 @@ public class BookViewer {
         Menu.printOrderedOption("2" ,"Show book history info");
         Menu.printOrderedOption("3" ,"Show waiting list menu");
         Menu.printOrderedOption("4" ,"Add this book into cart");
+        Menu.printOrderedOption("5" ,"Book returned by previous borrower");
         Menu.printEmptyRow();
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
         Menu.printOrderedOption("0" , "Main menu");
@@ -118,7 +141,7 @@ public class BookViewer {
         Menu.printTitle("Book Waiting List Menu for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         Menu.printOrderedOption("1" ,"Show book waiting list");
-        Menu.printOrderedOption("2" ,"Add new borrower to waiting list");
+        Menu.printOrderedOption("2" ,"Enter into the waiting list");
         Menu.printOrderedOption("3" ,"Dequeue the waiting list");
         Menu.printEmptyRow();
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
@@ -129,7 +152,6 @@ public class BookViewer {
     }
     
     private void waitingListExecuter(int option) {
-        boolean done = false;
         switch(option) {
             case -1:
                 Menu.printReturnedPreviousMenu();
@@ -141,49 +163,32 @@ public class BookViewer {
                 waitingListInfo();
                 break;
             case 2:
-                while (!done) {
-                    try{
-                        Menu.printTitle("Please enter the name to be added into the waiting list:");
-                        String name = InputUtil.getString(false);
-                        viewedBook.getWaitingList().enQueue(name);
-                        Menu.printMessage("Added " + name + " into the waiting list");
-                    }catch (Exception ex) {
-                    }
-                    done = true;
+                if (viewedBook.isInWaitingList()) {
+                    Menu.printMessage("You're already in the waiting list");
+                    return;
                 }
+                viewedBook.getWaitingList().enQueue(Library.username);
+                Menu.printMessage("Added " + Library.username + " into the waiting list");
                 break;
             case 3:
-                if (viewedBook.isBorrowed()) {
-                    Menu.printMessage("Can't dequeue waiting list. The book is currently borrowed by " + viewedBook.getCurrentBorrower());
-                }else {
-                    while (!done) {
-                        try{
-                            String nextBorrower = viewedBook.getWaitingList().deQueue();
-                            String message = "Removed " + nextBorrower + " from the waiting list for borrowing " + viewedBook.getTitle();
-                            Menu.printMessage(message);
-                            String currDate = getCurrentDate();
-                            viewedBook.getHistoryList().pushNode(new String[]{currDate, nextBorrower});
-                            viewedBook.setBorrowed();
-                        }catch (Exception ex) {
-                        }
-                        done = true;
-                    }
-                }
-                break;
-            case 4:
-                if (viewedBook.isBorrowed()) {
-                    Menu.printMessage("Failed! The book is currently borrowed by " + viewedBook.getCurrentBorrower());
-                }else {
-                    if (viewedBook.isInCart()) {
-                        Menu.printMessage("The Book is already in your cart!");
-                    }else {
-                        Library.cart.addBookIntoCart(viewedBook);
-                    }
-                }
+                dequeueBookWaitingList();
                 break;
             default:
                 Menu.printMessage("Invalid option!!! Please choose again");
         }
+    }
+        
+    private void dequeueBookWaitingList() {
+        if (viewedBook.isBorrowed()) {
+                    Menu.printMessage("Can't dequeue waiting list. The book is currently borrowed by " + viewedBook.getCurrentBorrower());
+                }else {
+                    String nextBorrower = getNextBorrower();
+                    String message = "Removed " + nextBorrower + " from the waiting list for borrowing " + viewedBook.getTitle();
+                    Menu.printMessage(message);
+                    String currDate = getCurrentDate();
+                    viewedBook.getHistoryList().pushNode(new String[]{currDate, nextBorrower});
+                    viewedBook.setBorrowed();
+                }
     }
     
     private String getCurrentDate () {
