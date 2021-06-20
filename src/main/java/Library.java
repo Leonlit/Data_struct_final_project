@@ -1,6 +1,7 @@
 public class Library {
     static Book books[] = DataGenerator.generateBooks();
     static Cart cart = new Cart();
+    static String username = DataGenerator.generateName();
     public static void main(String[] args) {
         startEventLoop();
     }

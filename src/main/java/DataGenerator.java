@@ -163,4 +163,11 @@ public class DataGenerator {
         return start + (int)Math.round(Math.random() * (end - start));
     }
     
+    public static String generateName () {
+        String nameList[] = new String[]{"Thaddaios Muraro", "Rebekka Beck", "Pedram Christoffersen",
+                                    "Luisinho Haggard", "Maria Kemény", "Nazar Martinsen", "Hyacinthe Abt",
+                                    "Janek Ek","Madhavi Förstner", "Turin Deforest"};
+        return nameList[(int)(Math.random() * nameList.length)];
+    }
+    
 }

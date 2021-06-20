@@ -57,6 +57,7 @@ public class BookViewer {
         Menu.printOrderedOption("1" ,"Show book info");
         Menu.printOrderedOption("2" ,"Show book history info");
         Menu.printOrderedOption("3" ,"Show waiting list menu");
+        Menu.printOrderedOption("4" ,"Add this book into cart");
         Menu.printEmptyRow();
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
         Menu.printOrderedOption("0" , "Main menu");
@@ -166,6 +167,17 @@ public class BookViewer {
                         }catch (Exception ex) {
                         }
                         done = true;
+                    }
+                }
+                break;
+            case 4:
+                if (viewedBook.isBorrowed()) {
+                    Menu.printMessage("Failed! The book is currently borrowed by " + viewedBook.getCurrentBorrower());
+                }else {
+                    if (viewedBook.isInCart()) {
+                        Menu.printMessage("The Book is already in your cart!");
+                    }else {
+                        Library.cart.addBookIntoCart(viewedBook);
                     }
                 }
                 break;

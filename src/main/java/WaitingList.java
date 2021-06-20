@@ -2,7 +2,7 @@
 //cart using queue concept to act as a cart to store book ID
 //that the user want to borrow.
 public class WaitingList {
-    private final int maxSize = 10;
+    private final int maxSize = 20;
     private String[] list;
     private int rear = -1, front = -1;
     

@@ -22,6 +22,7 @@ public class Menu {
         printEmptyRow();
         printOrderedOption("-1" ,"Exit");
         printEmptyRow();
+        printTextContent("Current username is " + Library.username);
         printRequestOption();
         printHorizontalBorder(true);
     }

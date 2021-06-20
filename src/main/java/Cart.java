@@ -24,6 +24,7 @@ public class Cart {
             displayCartInvalidMessage();
         }
         Menu.printMessage("Removed " + this.cart.get(index).getTitle() + " with index " + index + " from the cart");
+        cart.get(index).setNotInCart();
         this.cart.remove(index);
     }
     
