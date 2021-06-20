@@ -22,13 +22,12 @@ public class DataGenerator {
             String writers[] = getJsonArrayStringValue(data.getJSONArray("writers"));
             String dates[] = getJsonArrayStringValue(data.getJSONArray("dates"));
             String categories[] = getJsonArrayStringValue(data.getJSONArray("categories"));
-            int waitingList[][] = getJsonArrayofArrayValue(data.getJSONArray("waitingList"));
             String peoples[] = getJsonArrayStringValue(data.getJSONArray("students"));
             
             for (int idx=0;idx < bookID.length;idx++) {
                 String currBookCategories[] = generateCategories(shuffleStringArray(categories), genRandomNumber(2, 4));
                 String history[][] = generateHistory(peoples);
-                String waiting[] = generateWaitingList(waitingList[idx], peoples);
+                String waiting[] = generateWaitingList(peoples);
                 Random random = new Random();
                 books[idx] = new Book(bookID[idx], bookName[idx], writers[idx],
                                   dates[idx], currBookCategories, waiting, history, random.nextBoolean());
@@ -97,10 +96,12 @@ public class DataGenerator {
         return stringList.toArray(arr);
     }
     
-    private static String[] generateWaitingList (int[] list, String[] peoples) {
-        String result[] = new String[list.length];
-        for (int idx = 0;idx < list.length;idx++) {
-            result[idx] = peoples[list[idx]];
+    private static String[] generateWaitingList (String[] peoples) {
+        String shuffledArr[] = shuffleStringArray(peoples);
+        int rand = genRandomNumber (3, 5);
+        String result[] = new String[rand];
+        for (int idx = 0;idx < rand;idx++) {
+            result[idx] = shuffledArr[idx];
         }
         return result;
     }
@@ -111,17 +112,17 @@ public class DataGenerator {
         return categories;
     }
     
-    private static int[][] getJsonArrayofArrayValue (JSONArray arr) {
-        int results[][] = new int[20][7];
-        try {
-            for (int idx = 0;idx < arr.length();idx++) {
-                results[idx] = getJsonArrayIntValue(arr.getJSONArray(idx));
-            }
-        }catch (JSONException ex) {
-            Menu.printMessage("JSON file is not valid!!!");
-        }
-        return results;
-    }
+//    private static int[][] getJsonArrayofArrayValue (JSONArray arr) {
+//        int results[][] = new int[20][7];
+//        try {
+//            for (int idx = 0;idx < arr.length();idx++) {
+//                results[idx] = getJsonArrayIntValue(arr.getJSONArray(idx));
+//            }
+//        }catch (JSONException ex) {
+//            Menu.printMessage("JSON file is not valid!!!");
+//        }
+//        return results;
+//    }
     
     private static String[] getJsonArrayStringValue (JSONArray arr) {
         String results[] = new String[arr.length()];
@@ -168,6 +169,14 @@ public class DataGenerator {
                                     "Luisinho Haggard", "Maria Kemény", "Nazar Martinsen", "Hyacinthe Abt",
                                     "Janek Ek","Madhavi Förstner", "Turin Deforest"};
         return nameList[(int)(Math.random() * nameList.length)];
+    }
+    
+    public static String getCurrentDate () {
+        String currDate = "";
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        currDate = formatter.format(date);
+        return currDate;
     }
     
 }

@@ -21,7 +21,7 @@ public class WaitingList {
     
     // check if the queue is empty
     public boolean isEmpty(){
-        return front == -1  ;
+        return front==-1 && rear==-1;
     }
     
     // Adding an element (no return)
@@ -51,7 +51,7 @@ public class WaitingList {
     public String deQueue(){
         String name;
         if (isEmpty()){
-            Menu.printTextContent( "Waiting List is empty" );
+            Menu.printMessage( "Waiting List is empty" );
             return null;
         }
         

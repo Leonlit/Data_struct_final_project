@@ -22,8 +22,9 @@ public class Cart {
     public void removeBookfromCart(int index){
         if (index > this.cart.size() - 1 || index < 0) {
             displayCartInvalidMessage();
+            return;
         }
-        Menu.printMessage("Removed " + this.cart.get(index).getTitle() + " with index " + index + " from the cart");
+        Menu.printMessage("Removed " + this.cart.get(index).getTitle() + " from the cart");
         cart.get(index).setNotInCart();
         this.cart.remove(index);
     }

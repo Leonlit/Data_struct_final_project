@@ -54,7 +54,12 @@ public class Book {
         return inWaitingList;
     }
     
-    public void setBorrowed() {
+    public void setInWaitingList() {
+        this.inWaitingList = true;
+    }
+    
+    public void setBorrowed(String[] data) {
+        this.historyList.pushNode(data);
         this.borrowed = true;
     }
     
@@ -63,7 +68,7 @@ public class Book {
             Menu.printMessage("The Book " + getTitle() + " is not borrowed by anyone at the moment");
             return;
         }
-        Menu.printMessage("Book returned By " + getCurrentBorrower());
+        Menu.printMessage("Book returned By " + getCurrentBorrower()[1]);
         this.borrowed = false;
     }
     

@@ -10,7 +10,7 @@ public class Executer {
                 viewCart();
                 break;
             case 3:
-                //checkOutCart();
+                checkOutCart();
                 break;
             default:
                 break;
@@ -101,7 +101,6 @@ public class Executer {
                     return;
                 }
                 int choosen = 0;
-                temp.displayCart();
                 Menu.printMessage("Enter a item number to remove it from the cart");
                 choosen = InputUtil.getInteger(false);
                 temp.removeBookfromCart(choosen - 1);
@@ -118,5 +117,19 @@ public class Executer {
             "Please enter the item number to view its detail"
         });
         Menu.printNewLine();
+    }
+    
+    final static void checkOutCart () {
+        Cart tempCart = Library.cart;
+        tempCart.displayCart();
+        Menu.printMultiTitle(new String[]{"Are you sure you want to checkout these book?", "Please enter 1 to answer yes, while 0 as no"});
+        int option = InputUtil.getInteger(true);
+        if (option == 1) {
+            int size = tempCart.getCart().size();
+            String[] data = new String[] {DataGenerator.getCurrentDate(), Library.username};
+            for (int idx = 0; idx < size; idx++) {
+                tempCart.getCartItem(idx).setBorrowed(data);
+            }
+        }
     }
 }

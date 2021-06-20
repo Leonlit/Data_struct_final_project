@@ -4,6 +4,12 @@ public class Library {
     static String username = DataGenerator.generateName();
     public static void main(String[] args) {
         startEventLoop();
+//        String[] test = new String[]{"test", "test2", "test3", "test4"};
+//        WaitingList temp = new WaitingList(test);
+//        System.out.println(temp.deQueue());
+//        System.out.println(temp.deQueue());
+//        System.out.println(temp.deQueue());
+//        temp.displayQueue();
     }
 
     static void startEventLoop () {
