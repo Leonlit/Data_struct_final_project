@@ -205,6 +205,7 @@ public class BookViewer {
     }
     
     private void checkBookRecommendationScore () {
+        BookExecuter.displayBookList();
         SearchBook bookSearcher = new SearchBook(Library.books);
         BookExecuter.searchByIDMenu();
         int input = InputUtil.getInteger(true);
