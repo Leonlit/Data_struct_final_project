@@ -58,7 +58,6 @@ public class RecommendBook {
     public int calculateCost(int srcBookID, int destBookID) {
         int src = getBookIndex(srcBookID);
         int dest = getBookIndex(destBookID);
-        System.out.println(src + "," + dest);
         Integer prev[] = new Integer[books.length];
         isVisited[src] = true;
         
@@ -77,9 +76,7 @@ public class RecommendBook {
                 }
             }
         }
-        System.out.println(Arrays.toString(prev));
         List<Integer> cost = reconstructGraph(src, dest, prev);
-        System.out.println(Arrays.toString(cost.toArray()));
         return cost.size() - 1;
     }
     
@@ -95,16 +92,13 @@ public class RecommendBook {
     
     public void showGraph() {
         for(List link : edges) {
-            System.err.println(link.toString());
+            System.out.println(link.toString());
         }
     }
     
     public int getBookIndex (int id) {
         for (int idx = 0;idx < books.length;idx++) {
-            System.out.println(books[idx].getID());
-            System.out.println(idx);
             if (books[idx].getID() == id) {
-                System.out.println("test");
                 return idx;
             }
         }

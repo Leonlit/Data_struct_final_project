@@ -21,7 +21,7 @@ public class SearchBook {
                 current= current.getRight();
             }
         }
-        Menu.printMessage("Book with the ID " + bookID +",is not found in the library");
+        Menu.printMessage("Book with the ID " + bookID +", does not Exist in the library");
         return null;
     }
     

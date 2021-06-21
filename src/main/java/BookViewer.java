@@ -31,37 +31,16 @@ public class BookViewer {
                 this.historyInfo();
                 break;
             case 3:
-                int choosen = 1;
-                do {
-                    waitingListMenu();
-                    choosen = InputUtil.getInteger(false);
-                    waitingListExecuter(choosen);
-                }while (choosen >0);
-                if (choosen == 0) 
-                    this.option = 0;
+                waitingListExecuter();
                 break;
             case 4:
-                if (viewedBook.isBorrowed()) {
-                    Menu.printMessage("Failed! The book is currently borrowed by " + viewedBook.getCurrentBorrower()[1]);
-                    return;
-                }else {
-                    if (viewedBook.isInCart()) {
-                        Menu.printMessage("The Book is already in your cart!");
-                        return;
-                    }else {
-                        if (viewedBook.getWaitingList().isEmpty() || 
-                                viewedBook.getWaitingList().getFront() == Library.username) {
-                            Library.cart.addBookIntoCart(viewedBook);
-                            viewedBook.setInCart();
-                        }else {
-                            Menu.printMessage("The Waiting List is not empty, you can't borrow"
-                                    + " the Book before the others that are currently waiting before you!");
-                        }
-                    }
-                }
+                cartExecuter();
                 break;
             case 5:
                 viewedBook.setReturned();
+                break;
+            case 6:
+                checkBookRecommendationScore();
                 break;
             default:
                 Menu.invalidOptionMessage();
@@ -78,6 +57,7 @@ public class BookViewer {
         Menu.printOrderedOption("3" ,"Show waiting list menu");
         Menu.printOrderedOption("4" ,"Add this book into cart");
         Menu.printOrderedOption("5" ,"Book returned by previous borrower");
+        Menu.printOrderedOption("6" ,"Compare with another book");
         Menu.printEmptyRow();
         Menu.printOrderedOption("-1" , "Back (Search Book detail's Menu)");
         Menu.printOrderedOption("0" , "Main menu");
@@ -121,6 +101,38 @@ public class BookViewer {
         }
         Menu.printEmptyRow();
         Menu.printHorizontalBorder(true);
+    }
+    
+    private void waitingListExecuter () {
+        int choosen = 1;
+        do {
+            waitingListMenu();
+            choosen = InputUtil.getInteger(false);
+            waitingListExecuter(choosen);
+        }while (choosen >0);
+        if (choosen == 0) 
+            this.option = 0;
+    }
+    
+    private void cartExecuter () {
+        if (viewedBook.isBorrowed()) {
+            Menu.printMessage("Failed! The book is currently borrowed by " + viewedBook.getCurrentBorrower()[1]);
+            return;
+        }else {
+            if (viewedBook.isInCart()) {
+                Menu.printMessage("The Book is already in your cart!");
+                return;
+            }else {
+                if (viewedBook.getWaitingList().isEmpty() || 
+                        viewedBook.getWaitingList().getFront() == Library.username) {
+                    Library.cart.addBookIntoCart(viewedBook);
+                    viewedBook.setInCart();
+                }else {
+                    Menu.printMessage("The Waiting List is not empty, you can't borrow"
+                            + " the Book before the others that are currently waiting before you!");
+                }
+            }
+        }
     }
 
     public void waitingListInfo() {
@@ -190,6 +202,40 @@ public class BookViewer {
             Menu.printMessage(message);
             String data[] = new String[]{DataGenerator.getCurrentDate(), nextBorrower};
             viewedBook.setBorrowed(data);
+        }
+    }
+    
+    private void checkBookRecommendationScore () {
+        SearchBook bookSearcher = new SearchBook(Library.books);
+        BookExecuter.searchByIDMenu();
+        int input = InputUtil.getInteger(true);
+        if (input == -1) {
+            return;
+        }
+        Book searched = bookSearcher.find(input);
+        if (searched.getID() == viewedBook.getID()) {
+            Menu.printMessage("There's no use in comparing the same book");
+            return;
+        }
+        if (searched != null ) {
+            RecommendBook bookRec = new RecommendBook();
+            int score = bookRec.calculateCost(viewedBook.getID(), searched.getID());
+            String comparedFrom = viewedBook.getTitle();
+            String comparedTo = searched.getTitle();
+            String recommendedTemplate = " recommended book to read after reading ";
+            String msg = " ";
+            Menu.printMessage("Comparing " + comparedFrom + " with " + comparedTo);
+            
+            if (score < 0) {
+                msg = " has no similarity to ";
+            }else if (score < 2) {
+                msg = " is a" + recommendedTemplate;
+            }else if (score < 4){
+                msg = " is a somewhat" + recommendedTemplate;
+            }else {
+                msg = " is a less" + recommendedTemplate;
+            }
+            Menu.printMessage("The book " + comparedTo + msg + comparedFrom);
         }
     }
 }
