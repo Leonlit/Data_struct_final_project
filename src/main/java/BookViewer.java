@@ -207,7 +207,12 @@ public class BookViewer {
     private void checkBookRecommendationScore () {
         BookExecuter.displayBookList();
         SearchBook bookSearcher = new SearchBook(Library.books);
-        BookExecuter.searchByIDMenu();
+        Menu.printNewLine();
+        Menu.printMultiTitle(new String[]{
+            "Search Book By ID to compare to",
+            "Please enter the Book Number to search for the book (length of 5)"
+        });
+        Menu.printNewLine();
         int input = InputUtil.getInteger(true);
         if (input == -1) {
             return;
@@ -220,7 +225,7 @@ public class BookViewer {
         if (searched != null ) {
             RecommendBook bookRec = new RecommendBook();
             int score = bookRec.calculateCost(viewedBook.getID(), searched.getID());
-            String sign = "\"";
+            String sign = "`";
             String comparedFrom = sign + viewedBook.getTitle() + sign;
             String comparedTo = sign + searched.getTitle() + sign;
             String recommendedTemplate = " recommended book to read after reading ";
@@ -236,7 +241,7 @@ public class BookViewer {
             }else {
                 msg = " is a less" + recommendedTemplate;
             }
-            Menu.printMessage("The book " + comparedTo + msg + comparedFrom);
+            Menu.printMultiTitle(new String[]{comparedTo, "", msg, "", comparedFrom});
         }
     }
 }
