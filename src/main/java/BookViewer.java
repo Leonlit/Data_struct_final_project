@@ -137,7 +137,6 @@ public class BookViewer {
 
     public void waitingListInfo() {
         Menu.printNewLine();
-        Menu.printEmptyRow();
         Menu.printTitle("Viewing Waiting List for : " + viewedBook.getTitle());
         Menu.printEmptyRow();
         viewedBook.DisplayWaitingList();
@@ -220,8 +219,9 @@ public class BookViewer {
         if (searched != null ) {
             RecommendBook bookRec = new RecommendBook();
             int score = bookRec.calculateCost(viewedBook.getID(), searched.getID());
-            String comparedFrom = viewedBook.getTitle();
-            String comparedTo = searched.getTitle();
+            String sign = "\"";
+            String comparedFrom = sign + viewedBook.getTitle() + sign;
+            String comparedTo = sign + searched.getTitle() + sign;
             String recommendedTemplate = " recommended book to read after reading ";
             String msg = " ";
             Menu.printMessage("Comparing " + comparedFrom + " with " + comparedTo);

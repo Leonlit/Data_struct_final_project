@@ -3,6 +3,8 @@ public class Executer {
     final static void executeOption(int option) {
         done = false;
         switch (option) {
+            case -1:
+                return;
             case 1:
                 searchBook();
                 break;
@@ -125,6 +127,8 @@ public class Executer {
     final static void checkOutCart () {
         Cart tempCart = Library.cart;
         tempCart.displayCart();
+        if (tempCart.getCart().isEmpty()) 
+            return;
         Menu.printMultiTitle(new String[]{"Are you sure you want to checkout these book?", "Please enter 1 to answer yes, while 0 as no"});
         int option = InputUtil.getInteger(true);
         if (option == 1) {
@@ -132,7 +136,12 @@ public class Executer {
             String[] data = new String[] {DataGenerator.getCurrentDate(), Library.username};
             for (int idx = 0; idx < size; idx++) {
                 tempCart.getCartItem(idx).setBorrowed(data);
+                tempCart.getCartItem(idx).setNotInCart();
             }
+            tempCart.getCart().clear();
+            Menu.printMessage("All book successfully checked out");
+        }else {
+            Menu.printMessage("Aborting cart checkout");
         }
     }
 }
